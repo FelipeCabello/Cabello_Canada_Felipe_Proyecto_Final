@@ -1,0 +1,86 @@
+/*
+Marron: #3D262A
+Marron oscuro: #231F20
+Amarillo: #231F20
+Verde: #127C56
+*/
+
+
+body {
+  padding-top: 50px;
+  background-color: #F9F9F9;
+}
+
+div {
+  background-color: #EF7E56;
+  color: #ECF3F6;
+
+}
+
+.img-sesion {
+  /* Logo al iniciar sesion */
+  padding: 30px;
+  width: 360px;
+}
+
+.img {
+  width: 80%;
+}
+
+.btn, .btn-warning {
+  /* Botones */
+  color: #F9F9F9;
+  background-color: #305973;
+  border-color: #305973;
+}
+
+.menu, a>b {
+  /* Menu */
+  color: #231F20;
+  background-color: #EF7E56;
+  font-size: 20px;
+  padding-top: 35px;
+}
+
+.aviso {
+  /* Texto error */
+  color: #231F20;
+}
+
+h3 {
+  color: #231F20;
+}
+
+h5, span {
+  color: #231F20;
+}
+
+span {
+  width: 100px;
+  display: inline-block;
+  align-items: left;
+}
+
+center, a {
+  color: #231F20;
+}
+
+input {
+  background-color: #F9F9F9;
+  color: #231F20;
+}
+
+p, li>a {
+  color: #F9F9F9;
+}
+
+#izq {
+  /* Texto a la izquierda */
+  text-align: right;
+}
+
+#pad {
+  /* Padding para textos */
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

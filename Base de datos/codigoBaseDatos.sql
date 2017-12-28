@@ -7,6 +7,7 @@ create table usuario(
   codUsuario INTEGER NOT NULL AUTO_INCREMENT,
   usuario VARCHAR(25) NOT NULL,
   password VARCHAR(25) NOT NULL,
+  email VARCHAR(25) NOT NULL,
   rol VARCHAR(25) NOT NULL,
   primary key (codUsuario)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -35,8 +36,10 @@ create table agrupacion(
   codAgrupacion INTEGER NOT NULL AUTO_INCREMENT,
   nombre VARCHAR(25),
   tipo VARCHAR(25),
-  componentes VARCHAR(2000),
+  musica VARCHAR(25),
+  director VARCHAR(25),
   clasificacion VARCHAR(25),
+  localidad VARCHAR(25),
   primary key (codAgrupacion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
