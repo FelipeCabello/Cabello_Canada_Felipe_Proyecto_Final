@@ -24,20 +24,20 @@ create table letra(
   codLetra INTEGER NOT NULL AUTO_INCREMENT,
   codAgrupacion INTEGER NOT NULL,
   pase VARCHAR(25),
-  presentacion VARCHAR(2000),
-  pasadobleUno VARCHAR(2000),
-  pasodobleDos VARCHAR(2000),
-  cuples VARCHAR(1000),
-  popurri VARCHAR(2000),
+  presentacion BLOB,
+  pasodobleUno BLOB,
+  pasodobleDos BLOB,
+  cuples BLOB,
+  popurri BLOB,
   primary key (codLetra, codAgrupacion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table agrupacion(
   codAgrupacion INTEGER NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(25),
+  nombre VARCHAR(40),
   tipo VARCHAR(25),
-  musica VARCHAR(25),
-  director VARCHAR(25),
+  musica VARCHAR(40),
+  director VARCHAR(40),
   clasificacion VARCHAR(25),
   localidad VARCHAR(25),
   primary key (codAgrupacion)
@@ -52,13 +52,13 @@ create table fecha(
 
 create table autor(
   codAutor INTEGER NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(25),
-  apellidos VARCHAR(25),
-  apodo VARCHAR(25),
+  nombre VARCHAR(40),
+  apellidos VARCHAR(40),
+  apodo VARCHAR(40),
   fechaNacimiento DATE,
   fechaMuerte DATE,
   biografia VARCHAR(10000),
-  premios VARCHAR(25),
+  premios VARCHAR(100),
   primary key (codAutor)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-md-12">
           <h3 id="pad"><u>Carnaval de Cádiz</u></h3>
-          <center><img class="img" src="imagenes/cartel.jpg" alt="cartel"></center>
+          <center><img style="width: 60%" class="img img-rounded" src="imagenes/cartel.jpg" alt="cartel"></center>
           <p id="pad">
             - Carnaval de Cádiz 2018. De Interés Turístico Internacional. Del 8 al 18 de febrero.<br></br>
             La ciudad entera se vuelca con el carnaval, es una ocasión perfecta para conocerla y disfrutar del ingenio y la gracia de los gaditanos. Cádiz se transforma en una fiesta. Es época de Carnaval.<br></br>

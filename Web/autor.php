@@ -21,40 +21,67 @@
     <div class="container">
       <div class="row">
         <?php if (!isset($_GET["codAutor"])): ?>
-          <div class="col-md-12">
-            <h3 id="pad"><u>Los autores del carnaval:</u></h3>
+          <div class="col-md-5">
+            <center><img src="imagenes/falla.jpg" alt="falla" class="img img-rounded"></center>
+          </div>
+          <div class="col-md-7">
+            <center>
+            <table>
+              <tr>
+                <th id='size'>- Autores del carnaval -</th>
+              </tr>
+
             <?php
-            echo "<ul>";
             $query="SELECT * from autor order by nombre";
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
-                echo "<li><a href='autor.php?codAutor=".$obj->codAutor."'>".$obj->nombre." ".$obj->apellidos."</a></li>";
+                echo "
+                <tr>
+                  <td><a href='autor.php?codAutor=".$obj->codAutor."'>".$obj->nombre." ".$obj->apellidos."</a></td>
+                <tr>";
               }
             }
-            echo "</ul>";
             ?>
+            </table>
+            </center>
           </div>
         <?php else: ?>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <?php
-            echo "<ul>";
+            $codigo=$_GET["codAutor"];
+            echo "<p>Otros autores</p>
+            <ul>";
             $query="SELECT * from autor order by nombre";
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
-                echo "<li><a href='autor.php?codAutor=".$obj->codAutor."'>".$obj->nombre." ".$obj->apellidos."</a></li>";
+                if ($obj->codAutor!=$codigo) {
+                  echo "<li><a href='autor.php?codAutor=".$obj->codAutor."'>".$obj->nombre." ".$obj->apellidos."</a></li>";
+                }
               }
             }
             echo "</ul>";
             ?>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-9">
             <?php
             $codigo=$_GET["codAutor"];
             $query="SELECT * from autor where codAutor='$codigo'";
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
-                echo "<h3 id='pad'><u>".$obj->nombre." ".$obj->apellidos.": </u></h3>";
-                echo "<p>".$obj->biografia."</p>";
+                echo "
+                <h3 id='pad'><u>".$obj->nombre." ".$obj->apellidos.": </u></h3>
+                <center>
+                  <img src='imagenes/autores/".$obj->codAutor.".jpg' alt='autor' class='img img-rounded'>
+                </center>
+                <p style='padding-top:20px'>Conocido como ".$obj->apodo."</p>
+                <p>Premios: ".$obj->premios."</p>
+                ";
+                if ($obj->fechaMuerte=="0000-00-00") {
+                  echo "<p>Nació en ".$obj->fechaNacimiento."</p>";
+                } else {
+                  echo "<p>Nació en ".$obj->fechaNacimiento." y murio en ".$obj->fechaMuerte."</p>";
+                }
+                echo "<p>".nl2br($obj->biografia)."</p>";
               }
             }
             ?>

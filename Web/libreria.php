@@ -7,41 +7,34 @@ function copyright(){
 
 function menu(){
   /* Barra del menu */
-  echo "<div class='container'>
-      <div class='row'>
-        <div class='col-xs-12 col-sm-12 col-md-2' style='padding-top:20px; padding-bottom:10px;'>
+  echo "
+  <div class='container'>
+      <div class='row' style='padding-right:10px; padding-left:10px;'>
+        <div class='col-xs-12 col-md-2' style='padding-top:20px; padding-bottom:10px;'>
           <center><a href='inicio.php'><img style='width:80px' src='imagenes/oh.png' alt='logo'></a></center>
         </div>
-        <div class='col-xs-3 col-sm-3 col-md-1 menu'>
-          <a href='inicio.php'><b><p>Home</p></b> </a>
+        <div class='col-xs-2 col-md-1 menu'>
+          <a href='inicio.php'><p>Home</p></a>
         </div>
-        <div class='col-xs-3 col-sm-3 col-md-1 menu'>
-          <a href='autor.php'><b><p>Autor</p></b></a>
+        <div class='col-xs-2 col-md-1 menu'>
+          <a href='autor.php'><p>Autor</p></a>
         </div>
-        <div class='col-xs-3 col-sm-3 col-md-2 menu'>
-          <a href='#'><b><p>COAC 2018</p></b></a>
+        <div class='col-xs-2 col-md-1 menu'>
+          <a href='grupo.php'><p>Grupo</p></a>
         </div>
-        <div id='izq' class='col-xs-3 col-sm-3 col-md-6 menu'>
-          <a href='sesion.php'><b><p>Log out</p></b></a>
+        <div class='col-xs-3 col-md-1 menu'>
+          <a href='coac.php'><p>COAC</p></a>
+        </div>
+        <div id='izq' class='col-xs-3 col-md-6 menu'>
+          <a href='sesion.php'><p>Log out</p></a>
         </div>
       </div>
-      <hr>
+      <hr style='margin-top: -1px'>
     </div>";
 }
 
-function conexion(
-  $host = '192.168.1.63',
-  $usuario = 'root',
-  $password = 'Admin2015',
-  $basedatos = 'wikicarnaval',
-  $puerto = 3316
-){
-  $connection = new mysqli($host, $usuario, $password, $basedatos, $puerto);
-  $connection->set_charset('uft8');
-  if ($connection->connect_errno) {
-    echo 'Error al conectarse';
-    return false;
-  };
-  return($connection);
+function letra(){
+
 }
+
 ?>

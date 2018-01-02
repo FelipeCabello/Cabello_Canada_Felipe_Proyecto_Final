@@ -51,7 +51,11 @@
                 if ($result->num_rows==1) {
                   header('Location: inicio.php');
                 } else {
-                  echo "<center><p class='aviso' >Usuario o contraseña no coinciden, vuelvalo a intentar.</p></center><br></br>";
+                  echo "
+                  <center>
+                    <p class='aviso' >Usuario o contraseña no coinciden, vuelvalo a intentar.</p>
+                  </center>
+                  <br></br>";
                 }
               }
               ?>
