@@ -219,13 +219,3 @@ INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
 ('6', '29', '2011-00-00');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
 ('6', '30', '2009-00-00');
-
-/* letra */
-INSERT INTO letra (codLetra, codAgrupacion, pase, presentacion, pasodobleUno, pasodobleDos, cuples, popurri) VALUES
-('', '', '', '', '', '', '', '');
-
-INSERT INTO letra (codLetra, codAgrupacion, pase, presentacion, pasodobleUno, pasodobleDos, cuples, popurri) VALUES
-('', '', '', '', '', '', '', '');
-
-INSERT INTO letra (codLetra, codAgrupacion, pase, presentacion, pasodobleUno, pasodobleDos, cuples, popurri) VALUES
-('', '', '', '', '', '', '', '');

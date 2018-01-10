@@ -46,7 +46,7 @@
               <?php
               $usuario = $_POST["user"];
               $password = $_POST["password"];
-              $query="SELECT * from usuario WHERE usuario='$usuario' and password=md5('$password')";
+              $query="SELECT * from usuario WHERE usuario='$usuario' and password='$password'";
               if ($result = $connection->query($query)) {
                 if ($result->num_rows==1) {
                   header('Location: inicio.php');
@@ -85,7 +85,7 @@
                 if ($result->num_rows==1) {
                   echo "<center><p class='aviso'>Usuario ya existe, vuelvalo a intentar.</p></center><br></br>";
                 } else {
-                  $query2="INSERT into usuario (usuario, password, email, rol) values ('$usuario', md5('$password'), '$email', 'usuario')";
+                  $query2="INSERT into usuario (usuario, password, email, rol) values ('$usuario', '$password', '$email', 'usuario')";
                   if ($connection->query($query2)) {
                     header('Location: inicio.php');
                   }

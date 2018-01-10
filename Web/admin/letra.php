@@ -86,8 +86,7 @@
 
         <?php if (isset($_POST["comentario"]) && isset($_POST["estrellas"])): ?>
           <?php
-          ############## AQUI HAY QUE CAMBIAR $query="INSERT into comentario VALUES ('1', '".$_GET['codLetra']."', '".nl2br($_POST['comentario'])."', '".$_POST['estrellas']."')";
-          echo $query;
+          $query="INSERT into comentario VALUES ('1', '".$_GET['codAgrupacion']."', '".nl2br($_POST['comentario'])."', '".$_POST['estrellas']."')";
           if ($connection->query($query)) {
           } else {
             echo "

@@ -6,7 +6,7 @@ use wikicarnaval;
 create table usuario(
   codUsuario INTEGER NOT NULL AUTO_INCREMENT,
   usuario VARCHAR(25) NOT NULL,
-  password VARCHAR(25) NOT NULL,
+  password VARCHAR(64) NOT NULL,
   email VARCHAR(25) NOT NULL,
   rol VARCHAR(25) NOT NULL,
   primary key (codUsuario)
@@ -14,21 +14,21 @@ create table usuario(
 
 create table comentario(
   codUsuario INTEGER NOT NULL,
-  codAgrupacion INTEGER NOT NULL,
+  codLetra INTEGER NOT NULL,
   comentario VARCHAR(500),
   puntuacion VARCHAR(2),
-  primary key (codUsuario, codAgrupacion)
+  primary key (codUsuario, codLetra)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table letra(
   codLetra INTEGER NOT NULL AUTO_INCREMENT,
   codAgrupacion INTEGER NOT NULL,
   pase VARCHAR(25),
-  presentacion BLOB,
-  pasodobleUno BLOB,
-  pasodobleDos BLOB,
-  cuples BLOB,
-  popurri BLOB,
+  presentacion TEXT,
+  pasodobleUno TEXT,
+  pasodobleDos TEXT,
+  cuples TEXT,
+  popurri TEXT,
   primary key (codLetra, codAgrupacion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -57,7 +57,7 @@ create table autor(
   apodo VARCHAR(40),
   fechaNacimiento DATE,
   fechaMuerte DATE,
-  biografia VARCHAR(10000),
+  biografia TEXT,
   premios VARCHAR(100),
   primary key (codAutor)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -65,7 +65,7 @@ create table autor(
 ALTER TABLE comentario
 ADD CONSTRAINT com_fk_codUs FOREIGN KEY(codUsuario) REFERENCES usuario(codUsuario)
 ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT com_fk_codAg FOREIGN KEY(codAgrupacion) REFERENCES agrupacion(codAgrupacion)
+ADD CONSTRAINT com_fk_codLe FOREIGN KEY(codLetra) REFERENCES letra(codLetra)
 ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE fecha
