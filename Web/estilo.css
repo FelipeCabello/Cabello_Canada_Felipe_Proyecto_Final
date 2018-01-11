@@ -79,6 +79,10 @@ center, a {
   color: #231F20;
 }
 
+a:hover {
+  color: #000;
+}
+
 input {
   background-color: #F9F9F9;
   color: #231F20;
@@ -103,6 +107,26 @@ td {
 th {
   color: #231F20;
   padding-bottom: 3%;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #EF7E56;
+}
+
+li {
+    float: left;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+a>li:hover{
+  color: #000;
+  background-color: #f9a88b;
 }
 
 #izq {
@@ -131,6 +155,10 @@ th {
   border: 1px solid black;
   background-color: #f9a88b;
 }
+
+
+
+
 
 
 

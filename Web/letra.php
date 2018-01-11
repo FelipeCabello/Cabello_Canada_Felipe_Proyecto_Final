@@ -1,3 +1,11 @@
+<?php
+  session_start();
+  if (isset($_SESSION["usuario"])) {
+  } else {
+    session_destroy();
+    header("Location: sesion.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -23,7 +31,7 @@
         <div class="col-md-12">
           <?php
           $repetido="";
-          $query="SELECT * from agrupacion a join letra l where a.codagrupacion=l.codagrupacion and a.codagrupacion like ".$_GET["codAgrupacion"]."";
+          $query="SELECT * from agrupacion a join letra l on a.codagrupacion=l.codagrupacion where l.codagrupacion= ".$_GET["codAgrupacion"]."";
           if ($result = $connection->query($query)) {
             if ($result->num_rows==0) {
               echo "
@@ -86,15 +94,30 @@
 
         <?php if (isset($_POST["comentario"]) && isset($_POST["estrellas"])): ?>
           <?php
-          ############## AQUI HAY QUE CAMBIAR $query="INSERT into comentario VALUES ('1', '".$_GET['codLetra']."', '".nl2br($_POST['comentario'])."', '".$_POST['estrellas']."')";
-          echo $query;
-          if ($connection->query($query)) {
+          $query2="SELECT * from agrupacion a join letra l on a.codagrupacion=l.codagrupacion where l.codagrupacion= ".$_GET["codAgrupacion"]."";
+          if ($result = $connection->query($query2)) {
+            while ($obj = $result->fetch_object()) {
+              $letra=$obj->codLetra;
+              $query2="SELECT * from usuario where usuario='".$_SESSION["usuario"]."'";
+              if ($result = $connection->query($query2)) {
+                while ($obj = $result->fetch_object()) {
+                  $codusuario=$obj->codUsuario;
+                  $query4="INSERT into comentario values('".$codusuario."', '".$letra."', '".nl2br($_POST['comentario'])."', '".$_POST['estrellas']."');";
+                  if ($connection->query($query4)) {
+                    echo "Comentado";
+                  } else {
+                    echo "
+                    <center>
+                      <p>Ya tienes un comentario</p>
+                    </center>";
+                  }
+                }
+              }
+            }
           } else {
-            echo "
-            <center>
-              <p>Ya tienes un comentario</p>
-            </center>";
           }
+
+
           ?>
         <?php else: ?>
           <center><p>Debes escribir tu opinion y purtuar si quieres dejar un comentario.</p></center>
@@ -103,14 +126,14 @@
         <div class="col-md-12">
           <hr style="margin-bottom:50px">
           <?php
-          $query="SELECT * from comentario c join usuario u on c.codusuario=u.codusuario where c.codagrupacion like ".$_GET["codAgrupacion"]." ";
+          $query="SELECT * from usuario u join comentario c on u.codusuario=c.codusuario join letra l on l.codletra=c.codletra where codagrupacion= ".$_GET["codAgrupacion"]." ";
           if ($result = $connection->query($query)) {
             while ($obj = $result->fetch_object()) {
 
               echo "
               <center>
                 <div class='comentario'>
-                  <p id='der'>El usuario ".$obj->usuario." ha puntuado con un ".$obj->puntuacion." y ha dicho esto: </p>
+                  <p id='der'>El usuario <b>".$obj->usuario."</b> ha puntuado con un <b>".$obj->puntuacion."</b> y ha dicho esto: </p>
                     <p id='der'>  - ".$obj->comentario."</p>
                 </div>
               </center>

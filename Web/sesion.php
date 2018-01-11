@@ -1,3 +1,9 @@
+<?php
+  session_start();
+  if (isset($_SESSION["usuario"])) {
+    session_destroy();
+  }
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -49,7 +55,15 @@
               $query="SELECT * from usuario WHERE usuario='$usuario' and password=md5('$password')";
               if ($result = $connection->query($query)) {
                 if ($result->num_rows==1) {
-                  header('Location: inicio.php');
+                  while ($obj = $result->fetch_object()) {
+                    if ($obj->rol=="usuario") {
+                      $_SESSION["usuario"]=$usuario;
+                      header('Location: inicio.php');
+                    } else {
+                      $_SESSION["usuario"]=$usuario;
+                      header('Location: admin/inicio.php');
+                    }
+                  }
                 } else {
                   echo "
                   <center>
@@ -80,13 +94,16 @@
               $usuario = $_POST["user"];
               $password = $_POST["password"];
               $email = $_POST["email"];
-              $query="SELECT * from usuario WHERE usuario='$usuario'";
+              #Comprobación de usuarios duplicados
+              $query="SELECT * from usuario WHERE usuario='$usuario' or email='$email'";
               if ($result = $connection->query($query)) {
                 if ($result->num_rows==1) {
-                  echo "<center><p class='aviso'>Usuario ya existe, vuelvalo a intentar.</p></center><br></br>";
+                  echo "<center><p class='aviso'>Usuario o email ya existe, vuelvalo a intentar.</p></center><br></br>";
                 } else {
+                  #registro del usuario
                   $query2="INSERT into usuario (usuario, password, email, rol) values ('$usuario', md5('$password'), '$email', 'usuario')";
                   if ($connection->query($query2)) {
+                    $_SESSION["usuario"]=$usuario;
                     header('Location: inicio.php');
                   }
                 }

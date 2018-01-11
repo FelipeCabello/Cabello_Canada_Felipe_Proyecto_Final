@@ -1,3 +1,11 @@
+<?php
+  session_start();
+  if (isset($_SESSION["usuario"])) {
+  } else {
+    session_destroy();
+    header("Location: sesion.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>

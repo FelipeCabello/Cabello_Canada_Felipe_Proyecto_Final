@@ -1,3 +1,11 @@
+<?php
+  session_start();
+  if (isset($_SESSION["usuario"])) {
+  } else {
+    session_destroy();
+    header("Location: sesion.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -15,6 +23,8 @@
         printf("Connection failed: %s\n", $connection->connect_error);
         exit();
     }
+    ?>
+    <?php
     include_once("libreria.php");
     menu();
     ?>
@@ -46,23 +56,31 @@
             </center>
           </div>
         <?php else: ?>
-          <div class="col-md-3">
+          <div class="col-md-4">
             <?php
             $codigo=$_GET["codAutor"];
-            echo "<p>Otros autores</p>
-            <ul>";
+            echo "
+            <table>
+              <tr>
+                <th>Otros autores</th>
+              </tr>";
             $query="SELECT * from autor order by nombre";
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
                 if ($obj->codAutor!=$codigo) {
-                  echo "<li><a href='autor.php?codAutor=".$obj->codAutor."'>".$obj->nombre." ".$obj->apellidos."</a></li>";
+                  echo "
+                  <tr>
+                    <td>
+                      <a href='autor.php?codAutor=".$obj->codAutor."'> - ".$obj->nombre." ".$obj->apellidos."</a>
+                    </td>
+                  </tr>";
                 }
               }
             }
-            echo "</ul>";
+            echo "</table>";
             ?>
           </div>
-          <div class="col-md-9">
+          <div class="col-md-8">
             <?php
             $codigo=$_GET["codAutor"];
             $query="SELECT * from autor where codAutor='$codigo'";
