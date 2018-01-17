@@ -3,7 +3,7 @@
   if (isset($_SESSION["usuario"])) {
   } else {
     session_destroy();
-    header("Location: sesion.php");
+    header("Location: ../sesion.php");
   }
 ?>
 <!DOCTYPE html>
@@ -12,8 +12,10 @@
     <title>Oh, Cádiz!</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../imagenes/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../imagenes/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="../estilo.css">
   </head>
   <body>
     <?php

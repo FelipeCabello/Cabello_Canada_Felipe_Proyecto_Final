@@ -3,7 +3,7 @@
   if (isset($_SESSION["usuario"])) {
   } else {
     session_destroy();
-    header("Location: sesion.php");
+    header("Location: ../sesion.php");
   }
 ?>
 <!DOCTYPE html>
@@ -12,13 +12,15 @@
     <title>Oh, Cádiz!</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../imagenes/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../imagenes/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="../estilo.css">
   </head>
   <body>
     <?php
-    $connection = new mysqli("192.168.1.63", "root", "Admin2015", "wikicarnaval", 3316);
-    $connection->set_charset("uft8");
+    $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
+    $connection->set_charset("utf8");
     if ($connection->connect_errno) {
         printf("Connection failed: %s\n", $connection->connect_error);
         exit();
@@ -30,7 +32,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-5">
-            <center><img src="imagenes/letras.jpg" alt="comparsa" class="img img-rounded">
+            <center><img src="../imagenes/letras.jpg" alt="comparsa" class="img img-rounded">
             <form method="post">
               <h3 id="pad">Busca tu agrupacion:</h3>
               <input type='search' name='nombre'> <br></br>
@@ -71,7 +73,7 @@
                 echo "
                 <div class='col-md-6'>
                   <center>
-                    <img src='imagenes/grupo/".$obj->codAgrupacion.".jpg' alt='' class='img img-rounded'>
+                    <img src='".$obj->foto."' alt='' class='img img-rounded'>
                   </center>
                 </div>
                 <div class='col-md-6'>
@@ -83,7 +85,7 @@
                       <tr><td>Director: ".$obj->director."</td></tr>
                       <tr><td>Música: ".$obj->musica."</td></tr>
                       <tr><td>Clasificación: ".$obj->clasificacion."</td></tr>
-                      <tr><td><center><a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a></center></td></tr>
+                      <tr><td style='padding-top:20px'><center><a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a></center></td></tr>
                     </table>
                   </center>
                 </div>
@@ -102,7 +104,7 @@
                 <div class='container'>
                   <div class='row'>
                     <div class='col-md-6'>
-                      <center><img src='imagenes/grupo/".$obj->codAgrupacion.".jpg' alt='' class='img img-rounded'></center>
+                      <center><img src='".$obj->foto."' alt='' class='img img-rounded'></center>
                     </div>
                   <div class='col-md-6'>
                     <center>
@@ -112,7 +114,7 @@
                         <tr><td>Director: ".$obj->director."</td></tr>
                         <tr><td>Música: ".$obj->musica."</td></tr>
                         <tr><td>Clasificación: ".$obj->clasificacion."</td></tr>
-                        <tr><td><center><a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a></center></td></tr>
+                        <tr><td style='padding-top:20px'><center><a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a></center></td></tr>
                       </table>
                     </center>
                     </div>

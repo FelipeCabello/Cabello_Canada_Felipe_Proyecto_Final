@@ -10,14 +10,16 @@
     <title>Oh, Cádiz!</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="imagenes/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="imagenes/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="estilo.css">
   </head>
   <body>
     <?php
-    include_once("libreria.php");
-    $connection = new mysqli("192.168.1.63", "root", "Admin2015", "wikicarnaval", 3316);
-    $connection->set_charset("uft8");
+    include_once("usuario/libreria.php");
+    $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
+    $connection->set_charset("utf8");
     if ($connection->connect_errno) {
         printf("Connection failed: %s\n", $connection->connect_error);
         exit();
@@ -38,8 +40,8 @@
             <center>
               <form method="post">
                 <h3 id="pad" >Inicia sesión</h3>
-                <span>Usuario:</span><input type='text' name='user'> <br></br>
-                <span>Contraseña:</span><input type='password' name='password'> <br></br>
+                <input style="width:50%; display: inline;" class="form-control" type='text' name='user' placeholder="Usuario"> <br></br>
+                <input style="width:50%; display: inline;" class="form-control" type='password' name='password' placeholder="Contraseña"> <br></br>
                 <input type="submit" value="Entra" class="btn btn-warning">
               <form>
             </center>
@@ -58,9 +60,10 @@
                   while ($obj = $result->fetch_object()) {
                     if ($obj->rol=="usuario") {
                       $_SESSION["usuario"]=$usuario;
-                      header('Location: inicio.php');
+                      header('Location: usuario/inicio.php');
                     } else {
                       $_SESSION["usuario"]=$usuario;
+                      $_SESSION["admin"]='admin';
                       header('Location: admin/inicio.php');
                     }
                   }
@@ -78,15 +81,14 @@
             <center>
               <form method="post">
                 <h3 id="pad" >Resgístrate</h3>
-                <span>Usuario:</span><input type='text' name='user'> <br></br>
-                <span>Email:</span><input type='email' name='email'> <br></br>
-                <span>Contraseña:</span><input type='password' name='password'> <br></br>
+                <input style="width:50%; display: inline;" class="form-control" type='text' name='user' placeholder="Usuario"> <br></br>
+                <input style="width:50%; display: inline;" class="form-control" type='email' name='email' placeholder="Email"> <br></br>
+                <input style="width:50%; display: inline;" class="form-control" type='password' name='password' placeholder="Contraseña"> <br></br>
                 <input type="submit" value="Registrate" class="btn btn-warning">
               <form>
             </center>
             <center>
               <hr style="width: 60%">
-              <h3 style="padding: 10px">¿Ya tienes cuenta?</h3>
               <a href="sesion.php?accion=inicio"> <b id="pad">Inicia sesion aquí</b></a><br></br>
             </center>
             <?php if (isset($_POST["email"])): ?>
@@ -104,7 +106,7 @@
                   $query2="INSERT into usuario (usuario, password, email, rol) values ('$usuario', md5('$password'), '$email', 'usuario')";
                   if ($connection->query($query2)) {
                     $_SESSION["usuario"]=$usuario;
-                    header('Location: inicio.php');
+                    header('Location: usuario/inicio.php');
                   }
                 }
               }

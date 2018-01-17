@@ -1,16 +1,26 @@
+<?php
+  session_start();
+  if (null!==$_SESSION["usuario"] && null!==$_SESSION["admin"]) {
+  } else {
+    session_destroy();
+    header("Location: ../sesion.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <title>Oh, Cádiz!</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../imagenes/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../imagenes/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="../estilo.css">
   </head>
   <body>
     <?php
-    $connection = new mysqli("192.168.1.63", "root", "Admin2015", "wikicarnaval", 3316);
-    $connection->set_charset("uft8");
+    $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
+    $connection->set_charset("utf8");
     if ($connection->connect_errno) {
         printf("Connection failed: %s\n", $connection->connect_error);
         exit();
@@ -18,14 +28,114 @@
     include_once("libreria.php");
     menu();
     ?>
-    <?php if (!isset($_GET["codAgrupacion"]) && !isset($_POST["nombre"])): ?>
+    <?php if (!isset($_POST["buscar"]) && !isset($_GET["codAgrupacion"])): ?>
       <div class="container">
         <div class="row">
+          <div class="col-md-12">
+            <form action="grupo.php" method="post" enctype="multipart/form-data">
+              <h3 id='pad'>Inserta una agrupacion</h3>
+              <center>
+                <table>
+                  <tr>
+                    <td>Autor:</td>
+                    <td>
+                      <select name='codautor' class="form-control" required>
+                        <?php
+                        $query="SELECT * FROM autor ORDER BY nombre";
+                        if ($result = $connection->query($query)) {
+                          while ($obj = $result->fetch_object()) {
+                            echo "
+                            <option value='".$obj->codAutor."'>".$obj->nombre." ".$obj->apellidos."</option>
+                            ";
+                          }
+                        }
+                        ?>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Nombre:</td>
+                    <td><input class="form-control" type='text' name='name' placeholder="Por ejemplo: La Serenissia" required></td>
+                  </tr>
+                  <tr>
+                    <td>Tipo:</td>
+                    <td>
+                      <select class="form-control" name="tipo">
+                        <option value="Coro">Coro</option>
+                        <option value="Cuarteto">Cuarteto</option>
+                        <option value="Chirigota">Chirigota</option>
+                        <option value="Comparsa">Comparsa</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:200px">Autor de la música:</td>
+                    <td><input class="form-control" type='text' name='musica' placeholder="Por ejemplo: Juan Carlos Aragón Becerra" required></td>
+                  </tr>
+                  <tr>
+                    <td>Director:</td>
+                    <td><input class="form-control" type='text' name='director' placeholder="Por ejemplo: Vicente Lázaro García" required></td>
+                  </tr>
+                  <tr>
+                    <td>Clasificación:</td>
+                    <td><input class="form-control" type='text' name='clasificacion' placeholder='Por ejemplo: Segundo premio' required></td>
+                  </tr>
+                  <tr>
+                    <td>Localidad:</td>
+                    <td><input class="form-control" type='text' name='localidad' placeholder='Por ejemplo: Cádiz' required></td>
+                  </tr>
+                  <tr>
+                    <td>Año:</td>
+                    <td><input class="form-control" type='date' name='fecha' required></td>
+                  </tr>
+                  <tr>
+                    <td>Foto:</td>
+                    <td><input class="form-control" type="file" name="image" required /></td>
+                  </tr>
+                </table>
+                <input type="submit" name="" value="Enviar" class='btn btn-warning' required>
+              </center>
+            </form>
+            <?php if (isset($_POST["localidad"])): ?>
+              <?php
+              $tmp_file = $_FILES['image']['tmp_name'];
+              $target_dir = "../imagenes/grupo/";
+              $target_file = strtolower($target_dir . basename($_FILES['image']['name']));
+              $valid= true;
+              if (file_exists($target_file)) {
+                echo "Sorry, file already exists.";
+                $valid = false;
+              }
+              $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
+              if ($valid) {
+                move_uploaded_file($tmp_file, $target_file);
+                $query1="INSERT INTO agrupacion (codagrupacion, nombre, tipo, musica, director, clasificacion, localidad, foto) VALUES('0', '".$_POST["name"]."', '".$_POST["tipo"]."', '".$_POST["musica"]."', '".$_POST["director"]."', '".$_POST["clasificacion"]."', '".$_POST["localidad"]."', '$target_file')";
+                if ($result = $connection->query($query1)) {
+                  $query2="SELECT * FROM agrupacion WHERE nombre='".$_POST["name"]."'";
+                  if ($resulta = $connection->query($query2)) {
+                    while ($obj = $resulta->fetch_object()) {
+                      $query3="INSERT INTO fecha (codautor, codagrupacion, fecha) VALUES('".$_POST["codautor"]."', '".$obj->codAgrupacion."', '".$_POST["fecha"]."')";
+                      if ($connection->query($query3)) {
+                      }
+                    }
+
+                  }
+                }
+              }
+              ?>
+            <?php endif; ?>
+            <hr>
+          </div>
+          <div class="col-md-12">
+            <center>
+              <h5 style="color:white">Así lo ve un usuario</h5>
+            </center>
+          </div>
           <div class="col-md-5">
-            <center><img src="imagenes/letras.jpg" alt="comparsa" class="img img-rounded">
+            <center><img src="../imagenes/letras.jpg" alt="comparsa" class="img img-rounded">
             <form method="post">
               <h3 id="pad">Busca tu agrupacion:</h3>
-              <input type='search' name='nombre'> <br></br>
+              <input type='search' name='buscar'> <br></br>
               <input type="submit" value="Buscar" class="btn btn-warning">
             </form>
             </center>
@@ -54,7 +164,7 @@
     <?php else: ?>
       <div class="container">
         <div class="row">
-          <?php if (isset($_GET["codAgrupacion"]) && !isset($_POST["nombre"])): ?>
+          <?php if (isset($_GET["codAgrupacion"])): ?>
             <?php
             $codigo=$_GET["codAgrupacion"];
             $query="SELECT *, year(fecha) as fecha from agrupacion a join fecha f on a.codagrupacion=f.codagrupacion where f.codAgrupacion='$codigo'";
@@ -63,7 +173,7 @@
                 echo "
                 <div class='col-md-6'>
                   <center>
-                    <img src='imagenes/grupo/".$obj->codAgrupacion.".jpg' alt='' class='img img-rounded'>
+                    <img src='".$obj->foto."' class='img img-rounded'>
                   </center>
                 </div>
                 <div class='col-md-6'>
@@ -75,7 +185,8 @@
                       <tr><td>Director: ".$obj->director."</td></tr>
                       <tr><td>Música: ".$obj->musica."</td></tr>
                       <tr><td>Clasificación: ".$obj->clasificacion."</td></tr>
-                      <tr><td><center><a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a></center></td></tr>
+                      <tr><td><center><a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a>
+                      <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a></center></td></tr>
                     </table>
                   </center>
                 </div>
@@ -83,10 +194,11 @@
               }
             }
             ?>
-          <?php else: ?>
+          <?php endif; ?>
+          <?php if (isset($_POST["buscar"])): ?>
             <?php
-            $nombre=$_POST["nombre"];
-            $query="SELECT * from agrupacion where nombre like '%".$nombre."%'";
+            $buscar = $_POST["buscar"];
+            $query="SELECT * from agrupacion where nombre like '%".$buscar."%'";
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
                 $codigo=$obj->codAgrupacion;
@@ -94,7 +206,7 @@
                 <div class='container'>
                   <div class='row'>
                     <div class='col-md-6'>
-                      <center><img src='imagenes/grupo/".$obj->codAgrupacion.".jpg' alt='' class='img img-rounded'></center>
+                      <center><img src='".$obj->foto."' class='img img-rounded'></center>
                     </div>
                   <div class='col-md-6'>
                     <center>
@@ -104,7 +216,8 @@
                         <tr><td>Director: ".$obj->director."</td></tr>
                         <tr><td>Música: ".$obj->musica."</td></tr>
                         <tr><td>Clasificación: ".$obj->clasificacion."</td></tr>
-                        <tr><td><center><a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a></center></td></tr>
+                        <tr><td><center><a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a>
+                          <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a></center></td></tr>
                       </table>
                     </center>
                     </div>
@@ -120,6 +233,7 @@
     <?php endif; ?>
     <?php
     copyright();
+    exit();
     ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

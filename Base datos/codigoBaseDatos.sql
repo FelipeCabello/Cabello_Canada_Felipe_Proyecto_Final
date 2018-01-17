@@ -1,3 +1,4 @@
+drop database wikicarnaval;
 
 create database wikicarnaval;
 
@@ -40,6 +41,7 @@ create table agrupacion(
   director VARCHAR(40),
   clasificacion VARCHAR(25),
   localidad VARCHAR(25),
+  foto VARCHAR(100),
   primary key (codAgrupacion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -56,9 +58,9 @@ create table autor(
   apellidos VARCHAR(40),
   apodo VARCHAR(40),
   fechaNacimiento DATE,
-  fechaMuerte DATE,
   biografia TEXT,
   premios VARCHAR(100),
+  foto VARCHAR(100),
   primary key (codAutor)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

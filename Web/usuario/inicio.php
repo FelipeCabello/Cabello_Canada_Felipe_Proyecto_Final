@@ -3,7 +3,7 @@
   if (isset($_SESSION["usuario"])) {
   } else {
     session_destroy();
-    header("Location: sesion.php");
+    header("Location: ../sesion.php");
   }
 ?>
 <!DOCTYPE html>
@@ -12,19 +12,21 @@
     <title>Oh, Cádiz!</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../imagenes/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../imagenes/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="../estilo.css">
   </head>
   <body>
     <?php
     include_once("libreria.php");
     menu();
     ?>
-    <div class="container">
+    <div class="container" >
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" style="padding-left:25px">
           <h3 id="pad"><u>Carnaval de Cádiz</u></h3>
-          <center><img style="width: 60%" class="img img-rounded" src="imagenes/cartel.jpg" alt="cartel"></center>
+          <center><img style="width: 50%" class="img img-rounded" src="../imagenes/cartel.jpg" alt="cartel"></center>
           <p id="pad">
             - Carnaval de Cádiz 2018. De Interés Turístico Internacional. Del 8 al 18 de febrero.<br></br>
             La ciudad entera se vuelca con el carnaval, es una ocasión perfecta para conocerla y disfrutar del ingenio y la gracia de los gaditanos. Cádiz se transforma en una fiesta. Es época de Carnaval.<br></br>

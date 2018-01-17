@@ -1,16 +1,26 @@
+<?php
+  session_start();
+  if (null!==$_SESSION["usuario"] && null!==$_SESSION["admin"]) {
+  } else {
+    session_destroy();
+    header("Location: ../sesion.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <title>Oh, Cádiz!</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../imagenes/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../imagenes/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="../estilo.css">
   </head>
   <body>
     <?php
-    $connection = new mysqli("192.168.1.63", "root", "Admin2015", "wikicarnaval", 3316);
-    $connection->set_charset("uft8");
+    $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
+    $connection->set_charset("utf8");
     if ($connection->connect_errno) {
         printf("Connection failed: %s\n", $connection->connect_error);
         exit();
@@ -23,7 +33,7 @@
         <div class="col-md-12">
           <?php
           $repetido="";
-          $query="SELECT * from agrupacion a join letra l where a.codagrupacion=l.codagrupacion and a.codagrupacion like ".$_GET["codAgrupacion"]."";
+          $query="SELECT * from agrupacion a join letra l on a.codagrupacion=l.codagrupacion where l.codagrupacion= ".$_GET["codAgrupacion"]."";
           if ($result = $connection->query($query)) {
             if ($result->num_rows==0) {
               echo "
@@ -86,13 +96,26 @@
 
         <?php if (isset($_POST["comentario"]) && isset($_POST["estrellas"])): ?>
           <?php
-          $query="INSERT into comentario VALUES ('1', '".$_GET['codAgrupacion']."', '".nl2br($_POST['comentario'])."', '".$_POST['estrellas']."')";
-          if ($connection->query($query)) {
-          } else {
-            echo "
-            <center>
-              <p>Ya tienes un comentario</p>
-            </center>";
+          $query2="SELECT * from agrupacion a join letra l on a.codagrupacion=l.codagrupacion where l.codagrupacion= ".$_GET["codAgrupacion"]."";
+          if ($result = $connection->query($query2)) {
+            while ($obj = $result->fetch_object()) {
+              $letra=$obj->codLetra;
+              $query2="SELECT * from usuario where usuario='".$_SESSION["usuario"]."'";
+              if ($result = $connection->query($query2)) {
+                while ($obj = $result->fetch_object()) {
+                  $codusuario=$obj->codUsuario;
+                  $query4="INSERT into comentario values('".$codusuario."', '".$letra."', '".nl2br($_POST['comentario'])."', '".$_POST['estrellas']."');";
+                  if ($connection->query($query4)) {
+                    echo "Comentado";
+                  } else {
+                    echo "
+                    <center>
+                      <p>Ya tienes un comentario</p>
+                    </center>";
+                  }
+                }
+              }
+            }
           }
           ?>
         <?php else: ?>
@@ -102,14 +125,14 @@
         <div class="col-md-12">
           <hr style="margin-bottom:50px">
           <?php
-          $query="SELECT * from comentario c join usuario u on c.codusuario=u.codusuario where c.codagrupacion like ".$_GET["codAgrupacion"]." ";
+          $query="SELECT * from usuario u join comentario c on u.codusuario=c.codusuario join letra l on l.codletra=c.codletra where codagrupacion= ".$_GET["codAgrupacion"]." ";
           if ($result = $connection->query($query)) {
             while ($obj = $result->fetch_object()) {
 
               echo "
               <center>
                 <div class='comentario'>
-                  <p id='der'>El usuario ".$obj->usuario." ha puntuado con un ".$obj->puntuacion." y ha dicho esto: </p>
+                  <p id='der'>El usuario <b>".$obj->usuario."</b> ha puntuado con un <b>".$obj->puntuacion."</b> y ha dicho esto: </p>
                     <p id='der'>  - ".$obj->comentario."</p>
                 </div>
               </center>
