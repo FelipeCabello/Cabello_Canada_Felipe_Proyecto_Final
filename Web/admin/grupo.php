@@ -152,6 +152,7 @@
                 <tr>
                   <td><a href='grupo.php?codAgrupacion=".$obj->codAgrupacion."'>".$obj->nombre."</a></td>
                   <td>".$obj->tipo."</td></a>
+                  <td style='width:50px'><a href='modificar.php?codAgrupacion=".$obj->codAgrupacion."'><img src='../imagenes/cambiar.png' alt='delete' style='width:30px'> </a> </td>
                 </tr>";
               }
             }

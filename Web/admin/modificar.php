@@ -39,11 +39,10 @@
               $query="SELECT * FROM autor WHERE codAutor='".$_GET["codautor"]."'";
               if ($result = $connection->query($query)) {
                 while ($obj = $result->fetch_object()) {
-                  $cod = $obj->codAutor;
                   echo "
                   <form action='modificar.php' method='post' enctype='multipart/form-data'>
                     <h3 id='pad'>Modifica el autor ".$obj->nombre." ".$obj->apellidos."</h3>
-                    <center><img src='".$obj->foto."' alt='autor' class='img img-rounded' style='width:30%'></center>
+                    <center><img src='".$obj->foto."' alt='autor' class='img img-rounded' style='width:50%'></center>
                     <center>
                       <table>
                         <tr>
@@ -90,57 +89,146 @@
               ?>
 
             <?php endif; ?>
-            <?php if (isset($_GET["codagrupacion"])): ?>
+            <?php if (isset($_GET["codAgrupacion"])): ?>
               <!-- Codigo update Agrupacion -->
-
-            <?php endif; ?>
-          <?php else: ?>
-            <!-- Si quieres hacer un update modificando la foto -->
-            <?php if (isset($_POST["image"])): ?>
               <?php
-              $tmp_file = $_FILES['image']['tmp_name'];
-              $target_dir = "../imagenes/autores/";
-              $target_file = strtolower($target_dir . basename($_FILES['image']['name']));
-              $valid= true;
-              if (file_exists($target_file)) {
-                echo "Sorry, file already exists.";
-                $valid = false;
-              }
-              $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
-              if ($valid) {
-                var_dump($target_file);
-                move_uploaded_file($tmp_file, $target_file);
-                $query2="UPDATE autor set nombre='".$_POST['nombre']."', apellidos='".$_POST['apellidos']."', apodo='".$_POST['apodo']."', fechaNacimiento='".$_POST['fechaNacimiento']."', biografia='".$_POST['biografia']."', premios='".$_POST['premios']."', foto='$target_file' WHERE codAutor='".$_POST['codAutor']."'";
-                if ($result = $connection->query($query2)) {
-                  header('Location: autor.php');
-                } else {
-                  echo "Puede que haya puesto algun campo mal";
+              $query="SELECT a.nombre, tipo, musica, director, clasificacion, localidad, a.foto, f.codautor, f.codagrupacion, fecha, u.nombre as autor
+              from agrupacion a join fecha f on a.codagrupacion=f.codagrupacion join autor u on u.codautor=f.codautor where a.codagrupacion='".$_GET["codAgrupacion"]."'";
+              if ($result = $connection->query($query)) {
+                while ($obj = $result->fetch_object()) {
+                  echo "
+                  <form action='modificar.php' method='post' enctype='multipart/form-data'>
+                    <h3 id='pad'>Modifica el autor ".$obj->nombre."</h3>
+                    <center><img src='".$obj->foto."' alt='agrupacion' class='img img-rounded' style='width:50%'></center>
+                    <center>
+                      <table>
+                        <tr>
+                          <td><input type='hidden' name='codAgrupacion' value='".$obj->codagrupacion."' required></td>
+                          <td><input type='hidden' name='fotoagrupacion' value='".$obj->foto."' required></td>
+                        </tr>
+                        <tr>
+                          <td>Foto: </td>
+                          <td><input class='form-control' type='file' name='imagen'></td>
+                        </tr>
+                        <tr>
+                          <td>Nombre: </td>
+                          <td><input class='form-control' type='text' name='nombre' value='".$obj->nombre."' required></td>
+                        </tr>
+                        <tr>
+                          <td>Tipo: </td>
+                          <td><input class='form-control' type='text' name='tipo' value='".$obj->tipo."' required></td>
+                        </tr>
+                        <tr>
+                          <td>Música: </td>
+                          <td><input class='form-control' type='text' name='musica' value='".$obj->musica."' required></td>
+                        </tr>
+                        <tr>
+                          <td style='width:200px'>Director: </td>
+                          <td><input class='form-control' type='text' name='director' value='".$obj->director."' required></td>
+                        </tr>
+                        <tr>
+                          <td>Clasificacion: </td>
+                          <td><input class='form-control' type='text' name='clasificacion' value='".$obj->clasificacion."' required></td>
+                        </tr>
+                        <tr>
+                          <td>Música: </td>
+                          <td><input class='form-control' type='date' name='fecha' value='".$obj->fecha."' required></td>
+                        </tr>
+                        <tr>
+                          <td>Localidad: </td>
+                          <td><input class='form-control' type='text' name='localidad' value='".$obj->localidad."' required></td>
+                        </tr>
+                        <tr>
+                          <td colspan='2' style='padding-top:20px'><center><input type='submit' name='' value='Enviar' class='btn btn-warning' required></center></td>
+                        </tr>
+                      </table>
+                    </center>
+                  </form>
+                  ";
                 }
               }
               ?>
             <?php endif; ?>
-
-            <!-- Si quieres hacer un update pero sin modificar la foto -->
-            <?php if (!isset($_POST["image"]) && isset($_POST["nombre"])): ?>
-              <?php
-              $query2="UPDATE autor set nombre='".$_POST['nombre']."', apellidos='".$_POST['apellidos']."', apodo='".$_POST['apodo']."', fechaNacimiento='".$_POST['fechaNacimiento']."', biografia='".$_POST['biografia']."', premios='".$_POST['premios']."', foto='".$_POST['foto']."' WHERE codAutor='".$_POST['codAutor']."'";
-              if ($result = $connection->query($query2)) {
-                header('Location: autor.php');
-              } else {
-                echo "Puede que haya puesto algun campo mal";
-              }
-              ?>
+          <?php else: ?>
+            <?php if (isset($_POST["biografia"])): ?>
+              <!-- Si quieres hacer un update modificando la foto -->
+              <?php if (isset($_FILES['image'])): ?>
+                <?php
+                $tmp_file = $_FILES['image']['tmp_name'];
+                $target_dir = "../imagenes/autores/";
+                $target_file = strtolower($target_dir . basename($_FILES['image']['name']));
+                $valid= true;
+                if (file_exists($target_file)) {
+                  $query2="UPDATE autor set nombre='".$_POST['nombre']."', apellidos='".$_POST['apellidos']."', apodo='".$_POST['apodo']."', fechaNacimiento='".$_POST['fechaNacimiento']."', biografia='".$_POST['biografia']."', premios='".$_POST['premios']."', foto='".$_POST['foto']."' WHERE codAutor='".$_POST['codAutor']."'";
+                  if ($result = $connection->query($query2)) {
+                    header('Location: autor.php');
+                  } else {
+                    echo "Puede que haya puesto algun campo mal";
+                  }
+                  $valid = false;
+                }
+                $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
+                if ($valid) {
+                  var_dump($target_file);
+                  move_uploaded_file($tmp_file, $target_file);
+                  $query2="UPDATE autor set nombre='".$_POST['nombre']."', apellidos='".$_POST['apellidos']."', apodo='".$_POST['apodo']."', fechaNacimiento='".$_POST['fechaNacimiento']."', biografia='".$_POST['biografia']."', premios='".$_POST['premios']."', foto='$target_file' WHERE codAutor='".$_POST['codAutor']."'";
+                  if ($result = $connection->query($query2)) {
+                    header('Location: autor.php');
+                  } else {
+                    echo "Puede que haya puesto algun campo mal";
+                  }
+                }
+                ?>
+              <?php endif; ?>
             <?php endif; ?>
-
-            <!-- Si quieres hacer un update de codAgrupacion V V V V AQUI ABAJO V V V V -->
-
+            <?php if (isset($_POST["tipo"])): ?>
+              <!-- Si quieres hacer un update de codAgrupacion V V V V AQUI ABAJO V V V V t -->
+              <?php if (isset($_FILES['imagen'])): ?>
+                <?php
+                $tmp_file = $_FILES['imagen']['tmp_name'];
+                $target_dir = "../imagenes/grupo/";
+                $target_file = strtolower($target_dir . basename($_FILES['imagen']['name']));
+                $valid= true;
+                if (file_exists($target_file)) {
+                  $query5="UPDATE agrupacion set nombre='".$_POST['nombre']."', tipo='".$_POST['tipo']."', musica='".$_POST['musica']."',
+                  director='".$_POST['director']."', clasificacion='".$_POST['clasificacion']."', localidad='".$_POST['localidad']."',
+                  foto='".$_POST['fotoagrupacion']."' WHERE codAgrupacion='".$_POST['codAgrupacion']."'";
+                  if ($result = $connection->query($query5)) {
+                    $query6="UPDATE fecha set fecha='".$_POST['fecha']."' where codAgrupacion='".$_POST['codAgrupacion']."'";
+                    if ($result = $connection->query($query6)) {
+                      echo "adios";
+                      header('Location: grupo.php');
+                    }
+                  } else {
+                    echo "Puede que haya puesto algun campo mal";
+                  }
+                  $valid = false;
+                }
+                $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
+                if ($valid) {
+                  var_dump($target_file);
+                  move_uploaded_file($tmp_file, $target_file);
+                  $query3="UPDATE agrupacion set nombre='".$_POST['nombre']."', tipo='".$_POST['tipo']."', musica='".$_POST['musica']."',
+                  director='".$_POST['director']."', clasificacion='".$_POST['clasificacion']."', localidad='".$_POST['localidad']."',
+                  foto='$target_file' WHERE codAgrupacion='".$_POST['codAgrupacion']."'";
+                  if ($result = $connection->query($query3)) {
+                    $query4="UPDATE fecha set fecha='".$_POST['fecha']."' WHERE codAgrupacion='".$_POST['codAgrupacion']."';";
+                    if ($result = $connection->query($query4)) {
+                      header('Location: grupo.php');
+                    }
+                  } else {
+                    echo "Puede que haya puesto algun campo mal";
+                  }
+                }
+                ?>
+              <?php endif; ?>
+            <?php endif; ?>
           <?php endif; ?>
         </div>
       </div>
     </div>
     <?php
     copyright();
-    exit();
     ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
