@@ -35,6 +35,7 @@
         <div class="col-md-12">
           <?php if (isset($_GET["codautor"]) || isset($_GET["codAgrupacion"])): ?>
             <?php if (isset($_GET["codautor"])): ?>
+              <!-- Codigo UPDATE autor -->
               <?php
               $query="SELECT * FROM autor WHERE codAutor='".$_GET["codautor"]."'";
               if ($result = $connection->query($query)) {
@@ -87,7 +88,6 @@
                 }
               }
               ?>
-
             <?php endif; ?>
             <?php if (isset($_GET["codAgrupacion"])): ?>
               <!-- Codigo update Agrupacion -->
@@ -106,10 +106,7 @@
                           <td><input type='hidden' name='codAgrupacion' value='".$obj->codagrupacion."' required></td>
                           <td><input type='hidden' name='fotoagrupacion' value='".$obj->foto."' required></td>
                         </tr>
-                        <tr>
-                          <td>Foto: </td>
-                          <td><input class='form-control' type='file' name='imagen'></td>
-                        </tr>
+
                         <tr>
                           <td>Nombre: </td>
                           <td><input class='form-control' type='text' name='nombre' value='".$obj->nombre."' required></td>
@@ -131,12 +128,16 @@
                           <td><input class='form-control' type='text' name='clasificacion' value='".$obj->clasificacion."' required></td>
                         </tr>
                         <tr>
-                          <td>Música: </td>
+                          <td>Año: </td>
                           <td><input class='form-control' type='date' name='fecha' value='".$obj->fecha."' required></td>
                         </tr>
                         <tr>
                           <td>Localidad: </td>
                           <td><input class='form-control' type='text' name='localidad' value='".$obj->localidad."' required></td>
+                        </tr>
+                        <tr>
+                          <td>Foto: </td>
+                          <td><input class='form-control' type='file' name='imagen'></td>
                         </tr>
                         <tr>
                           <td colspan='2' style='padding-top:20px'><center><input type='submit' name='' value='Enviar' class='btn btn-warning' required></center></td>
@@ -151,7 +152,7 @@
             <?php endif; ?>
           <?php else: ?>
             <?php if (isset($_POST["biografia"])): ?>
-              <!-- Si quieres hacer un update modificando la foto -->
+              <!-- Si quieres hacer un update de Autor -->
               <?php if (isset($_FILES['image'])): ?>
                 <?php
                 $tmp_file = $_FILES['image']['tmp_name'];
@@ -159,11 +160,10 @@
                 $target_file = strtolower($target_dir . basename($_FILES['image']['name']));
                 $valid= true;
                 if (file_exists($target_file)) {
+                  # Si la imagen coincide con la que ya tenia, solo haremos un update de todo lo demas
                   $query2="UPDATE autor set nombre='".$_POST['nombre']."', apellidos='".$_POST['apellidos']."', apodo='".$_POST['apodo']."', fechaNacimiento='".$_POST['fechaNacimiento']."', biografia='".$_POST['biografia']."', premios='".$_POST['premios']."', foto='".$_POST['foto']."' WHERE codAutor='".$_POST['codAutor']."'";
                   if ($result = $connection->query($query2)) {
                     header('Location: autor.php');
-                  } else {
-                    echo "Puede que haya puesto algun campo mal";
                   }
                   $valid = false;
                 }
@@ -174,15 +174,13 @@
                   $query2="UPDATE autor set nombre='".$_POST['nombre']."', apellidos='".$_POST['apellidos']."', apodo='".$_POST['apodo']."', fechaNacimiento='".$_POST['fechaNacimiento']."', biografia='".$_POST['biografia']."', premios='".$_POST['premios']."', foto='$target_file' WHERE codAutor='".$_POST['codAutor']."'";
                   if ($result = $connection->query($query2)) {
                     header('Location: autor.php');
-                  } else {
-                    echo "Puede que haya puesto algun campo mal";
                   }
                 }
                 ?>
               <?php endif; ?>
             <?php endif; ?>
             <?php if (isset($_POST["tipo"])): ?>
-              <!-- Si quieres hacer un update de codAgrupacion V V V V AQUI ABAJO V V V V t -->
+              <!-- Si quieres hacer un update de Agrupacion -->
               <?php if (isset($_FILES['imagen'])): ?>
                 <?php
                 $tmp_file = $_FILES['imagen']['tmp_name'];
@@ -190,6 +188,7 @@
                 $target_file = strtolower($target_dir . basename($_FILES['imagen']['name']));
                 $valid= true;
                 if (file_exists($target_file)) {
+                  # Si la imagen coincide con la que ya tenia, solo haremos un update de todo lo demas
                   $query5="UPDATE agrupacion set nombre='".$_POST['nombre']."', tipo='".$_POST['tipo']."', musica='".$_POST['musica']."',
                   director='".$_POST['director']."', clasificacion='".$_POST['clasificacion']."', localidad='".$_POST['localidad']."',
                   foto='".$_POST['fotoagrupacion']."' WHERE codAgrupacion='".$_POST['codAgrupacion']."'";
@@ -199,8 +198,6 @@
                       echo "adios";
                       header('Location: grupo.php');
                     }
-                  } else {
-                    echo "Puede que haya puesto algun campo mal";
                   }
                   $valid = false;
                 }
@@ -216,8 +213,6 @@
                     if ($result = $connection->query($query4)) {
                       header('Location: grupo.php');
                     }
-                  } else {
-                    echo "Puede que haya puesto algun campo mal";
                   }
                 }
                 ?>

@@ -28,7 +28,7 @@
     include_once("libreria.php");
     menu();
     ?>
-    <?php if (!isset($_POST["buscar"]) && !isset($_GET["codAgrupacion"])): ?>
+    <?php if (!isset($_POST["buscar"]) && !isset($_GET["codAgrupacion"]) && !isset($_GET["borrar"])): ?>
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -144,15 +144,15 @@
             <center>
             <?php
             echo "<table>";
-            echo "<tr><th id='size'> - Agrupacion - </th><th id='size'> - Tipo - </th><tr>";
+            echo "<tr><th id='size'> - Agrupacion - </th><tr>";
             $query="SELECT * from agrupacion order by nombre";
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
                 echo "
                 <tr>
                   <td><a href='grupo.php?codAgrupacion=".$obj->codAgrupacion."'>".$obj->nombre."</a></td>
-                  <td>".$obj->tipo."</td></a>
-                  <td style='width:50px'><a href='modificar.php?codAgrupacion=".$obj->codAgrupacion."'><img src='../imagenes/cambiar.png' alt='delete' style='width:30px'> </a> </td>
+                  <td style='width:50px'><center><a href='modificar.php?codAgrupacion=".$obj->codAgrupacion."'><img src='../imagenes/cambiar.png' alt='delete' style='width:30px'> </a> </center></td>
+                  <td style='width:50px'><center><a href='grupo.php?borrar=".$obj->codAgrupacion."'><img src='../imagenes/borrar.png' alt='delete' style='width:30px'> </a> </center></td>
                 </tr>";
               }
             }
@@ -163,6 +163,15 @@
         </div>
       </div>
     <?php else: ?>
+      <?php if (isset($_GET["borrar"])): ?>
+        <?php
+        $cod = $_GET["borrar"];
+        $query4="DELETE FROM agrupacion WHERE codAgrupacion='$cod'";
+        if ($connection->query($query4)) {
+          header('Location: grupo.php');
+        }
+        ?>
+      <?php endif; ?>
       <div class="container">
         <div class="row">
           <?php if (isset($_GET["codAgrupacion"])): ?>

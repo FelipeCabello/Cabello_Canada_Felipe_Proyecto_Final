@@ -31,6 +31,63 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
+          <?php if (!isset($_POST["pase"])): ?>
+            <form action="letra.php" method="post">
+              <h3 id='pad'>Inserta las letras</h3>
+              <center>
+                <table>
+                  <tr>
+                    <td>Pase:</td>
+                    <td>
+                      <select class="form-control" name="pase" required>
+                        <option value="Preliminares">Preliminares</option>
+                        <option value="Cuartos">Cuartos</option>
+                        <option value="Semifinal">Semifinal</option>
+                        <option value="Final">Final</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:200px">Presentación:</td>
+                    <td><textarea class="form-control" name="presentacion" rows="4" placeholder="Escribe aquí..." required></textarea></td>
+                  </tr>
+                  <tr>
+                    <td>Primer pasodoble: </td>
+                    <td><textarea class="form-control" name="pasodobleUno" rows="4" placeholder="Escribe aquí..." required></textarea></td>
+                  </tr>
+                  <tr>
+                    <td>Segundo pasodoble: </td>
+                    <td><textarea class="form-control" name="pasodobleDos" rows="4" placeholder="Escribe aquí..." required></textarea></td>
+                  </tr>
+                  <tr>
+                    <td>Cuples pasodoble: </td>
+                    <td><textarea class="form-control" name="cuples" rows="4" placeholder="Escribe aquí..." required></textarea></td>
+                  </tr>
+                  <tr>
+                    <td>Popurri: </td>
+                    <td><textarea class="form-control" name="popurri" rows="4" placeholder="Escribe aquí..." required></textarea></td>
+                    <?php
+                    $codigo=$_GET["codAgrupacion"];
+                    echo "<td><input type='hidden' name='codAgrupacion' value='".$codigo."' required></td>";
+                    ?>
+                  </tr>
+                </table>
+                <input type="submit" name="" value="Enviar" class='btn btn-warning' required>
+              </center>
+            </form>
+          <?php else: ?>
+            <?php
+            $query="INSERT INTO letra VALUES (DEFAULT, '".$_POST["codAgrupacion"]."', '".$_POST["pase"]."', '".$_POST["presentacion"]."', '".$_POST["pasodobleUno"]."', '".$_POST["pasodobleDos"]."', '".$_POST["cuples"]."', '".$_POST["popurri"]."')";
+            if ($connection->query($query)) {
+              $codigo = $_POST["codAgrupacion"];
+              header("Location: letra.php?codAgrupacion=$codigo");
+            }
+            ?>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
           <?php
           $repetido="";
           $query="SELECT * from agrupacion a join letra l on a.codagrupacion=l.codagrupacion where l.codagrupacion= ".$_GET["codAgrupacion"]."";
@@ -63,13 +120,10 @@
                 echo "<p style='padding-left:30px'><b>Popurri de ".$obj->pase."</b><br></br>".nl2br($obj->popurri)."</p><br></br>";
               }
             }
-
           }
           ?>
         </div>
       </div>
-    </div>
-    <div class="container">
       <div class="row">
         <div class="col-md-12">
           <hr>
@@ -118,8 +172,6 @@
             }
           }
           ?>
-        <?php else: ?>
-          <center><p>Debes escribir tu opinion y purtuar si quieres dejar un comentario.</p></center>
         <?php endif; ?>
 
         <div class="col-md-12">
@@ -128,7 +180,6 @@
           $query="SELECT * from usuario u join comentario c on u.codusuario=c.codusuario join letra l on l.codletra=c.codletra where codagrupacion= ".$_GET["codAgrupacion"]." ";
           if ($result = $connection->query($query)) {
             while ($obj = $result->fetch_object()) {
-
               echo "
               <center>
                 <div class='comentario'>

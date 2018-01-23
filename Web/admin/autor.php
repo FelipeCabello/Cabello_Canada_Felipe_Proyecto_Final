@@ -123,8 +123,8 @@
                     echo "
                     <tr>
                     <td><a href='autor.php?codAutor=".$obj->codAutor."'>".$obj->nombre." ".$obj->apellidos."</a></td>
-                    <td style='width:50px'><a href='autor.php?borrar=".$obj->codAutor."'><img src='../imagenes/borrar.png' alt='delete' style='width:35px'> </a> </td>
                     <td style='width:50px'><a href='modificar.php?codautor=".$obj->codAutor."'><img src='../imagenes/cambiar.png' alt='delete' style='width:30px'> </a> </td>
+                    <td style='width:50px'><a href='autor.php?borrar=".$obj->codAutor."'><img src='../imagenes/borrar.png' alt='delete' style='width:35px'> </a> </td>
                     <tr>";
                   }
                 }
