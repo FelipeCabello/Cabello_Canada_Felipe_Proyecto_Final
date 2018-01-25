@@ -75,7 +75,7 @@
                           <td><input class='form-control' type='file' name='image' /></td>
                         </tr>
                         <tr>
-                          <td colspan='2' style='padding-top:20px'><center><input type='submit' name='' value='Enviar' class='btn btn-warning' required></center></td>
+                          <td colspan='2' style='padding-top:20px'><center><input type='submit' name='' value='Modificar' class='btn btn-warning' required></center></td>
                         </tr>
                         <tr>
                           <td><input type='hidden' name='codAutor' value='".$obj->codAutor."' required></td>

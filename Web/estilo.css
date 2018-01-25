@@ -18,6 +18,13 @@ div {
   padding-bottom: 10px;
 }
 
+.form-control {
+  background-color: #F9F9F9;
+  color: #231F20;
+  font-size: 18px;
+  height: 100%;
+}
+
 .img-sesion {
   /* Logo al iniciar sesion */
   padding: 30px;
@@ -62,11 +69,6 @@ div {
   border: 1px solid #231F20;
 }
 
-.form-control {
-  font-size: 18px;
-  height: 100%;
-}
-
 h3 {
   color: #231F20;
 }
@@ -87,11 +89,6 @@ center, a {
 
 a:hover {
   color: #000;
-}
-
-input {
-  background-color: #F9F9F9;
-  color: #231F20;
 }
 
 p, li>a {

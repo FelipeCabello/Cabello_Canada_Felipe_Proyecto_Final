@@ -10,7 +10,7 @@ Algunas de sus coplas, han traspasado las fronteras de Cádiz e incluso de Andal
 '4 primeros premios, 2 segundos y 2 terceros', '../imagenes/autores/1.jpg');
 
 INSERT INTO autor (codautor, nombre, apellidos, apodo, fechaNacimiento , biografia, premios, foto) VALUES
-('2' ,'Antonio', 'Martín García', 'El niño de San Vicente', '1950-00-00' , 'Antonio Martín pasa por ser uno de los autores más representativos del carnaval gaditano. Ha conseguido un total de 16 primeros premios en comparsa en el concurso oficial de agrupaciones del Gran Teatro Falla. Además ha pregonado diversos carnavales, entre ellos el Carnaval de Cádiz de 1997. Antonio, jovencísimo, no sólo destacó en el recién nacido mundo de la comparsa, sino que llevó a gala el tanguillo que tanto defendía en sus letras. Fue con ello coautor junto a Antonio Burgos de su coro de La Viña dónde también consiguió diversos premios, con coros como La Plastilina o Batmonos que nos vamos.
+('2' ,'Antonio', 'Martín García', 'El niño de San Vicente', '1950-01-01' , 'Antonio Martín pasa por ser uno de los autores más representativos del carnaval gaditano. Ha conseguido un total de 16 primeros premios en comparsa en el concurso oficial de agrupaciones del Gran Teatro Falla. Además ha pregonado diversos carnavales, entre ellos el Carnaval de Cádiz de 1997. Antonio, jovencísimo, no sólo destacó en el recién nacido mundo de la comparsa, sino que llevó a gala el tanguillo que tanto defendía en sus letras. Fue con ello coautor junto a Antonio Burgos de su coro de La Viña dónde también consiguió diversos premios, con coros como La Plastilina o Batmonos que nos vamos.
 En sus composiciones se destaca un fuerte aroma de Cádiz, con músicas y letras que aún hoy nos llevan al pasado de unas costumbres de una niñez ya marchita. Las calles del barrio de La Viña, la plaza de la Cruz Verde y otros lugares históricos de Cádiz permanecen latentes en sus letras; así como la costumbre, ya cada vez menos vista, de la quema del juanillo en aquellos campos vecinales o la liberación del preso.
 Antonio siempre mostró una gran aflicción sobre la muerte de su madre en sus letras. En la comparsa Agua Clara reflejó una de ellas.
 Si la novia artística de Pedro Romero fue Lola; de Antonio Martín lo fue Rosarillo y Carmela, referentes a la patrona, la Virgen del Rosario, y a la Virgen del Carmen.
@@ -48,7 +48,7 @@ En 2015 anuncia su vuelta al Gran Concurso de Coplas del Carnaval de Cádiz, a t
 '6 primeros premios, 5 segundos y 3 terceros', '../imagenes/autores/4.jpg');
 
 INSERT INTO autor (codautor, nombre, apellidos, apodo, fechaNacimiento , biografia, premios, foto) VALUES
-('5' ,'Antonio Pedro', 'Serrano Álvarez','El Canijo de Carmona','1967-00-00' ,'Nacido en el barrio del Parque Alcosa es ingeniero de Informática por la universidad de Sevilla y funcionario de la Junta de Andalucía, en excedencia, trabajando en la empresa privada.
+('5' ,'Antonio Pedro', 'Serrano Álvarez','El Canijo de Carmona','1967-01-01' ,'Nacido en el barrio del Parque Alcosa es ingeniero de Informática por la universidad de Sevilla y funcionario de la Junta de Andalucía, en excedencia, trabajando en la empresa privada.
 Lo de «Canijo de Carmona» no le viene porque naciera en esa localidad sevillana, sino porque salió varios años en una chirigota en el carnaval de allí.
 Es uno de los referentes e impulsores del carnaval sevillano, habiendo participado con agrupaciones hispalenses en el «Concurso de Agrupaciones Carnavalescas» del Gran Teatro Falla de Cádiz.
 Después quedó difinitivamente ligado a Cádiz donde reside, escribiendo letras para chirigotas y comparsas de su provincia y formando una chirigota gaditana con la que ha sido ganador de varios premios en el concurso, entre ellos tres primeros premios con: «Los que salimos por gusto», «Los Juan Palomez, yo te lo guiso, tú me lo comes» y «Ricas y maduras».
@@ -56,7 +56,7 @@ Colabora en el programa de radio de Canal Sur «El Pelotazo».',
 '3 primeros premios', '../imagenes/autores/5.jpg');
 
 INSERT INTO autor (codautor, nombre, apellidos, apodo, fechaNacimiento , biografia, premios, foto) VALUES
-('6' ,'Constantino', 'Tovar Verdejo', 'Tino' , '0000-00-00' ,'El autor gaditano Constantino Tovar Verdejo, conocido en el mundo del Carnaval de Cádiz como Tino Tovar, ha decidido continuar participando en el Carnaval y como es habitual participará en el Concurso Oficial de Agrupaciones Carnavalescas 2010 (COAC 2010).
+('6' ,'Constantino', 'Tovar Verdejo', 'Tino' , '1978-01-01' ,'El autor gaditano Constantino Tovar Verdejo, conocido en el mundo del Carnaval de Cádiz como Tino Tovar, ha decidido continuar participando en el Carnaval y como es habitual participará en el Concurso Oficial de Agrupaciones Carnavalescas 2010 (COAC 2010).
 El nombre elegido para su comparsa 2010, la cual será interpretada por un renovado grupo se llama Volver a empezar.
 Las bajas respecto al grupo que participó en las tablas del Gran Teatro Falla con la comparsa Voces son: Ángel Subiela Gómez, Carlos Brihuega Delgado Carli, Mariano Varela, José Luis Martín, Juan Gamaza y Tomas García Tomy, entran a formar parte de la comparsa de los hermanos carapapas que participará en el COAC 2010 con la comparsa El G - 15. Francisco Javier Martínez El Pellejo cantará en la comparsa Las noches de bohemia de Juan Carlos Aragón para el próximo COAC 2010.
 Las nuevas incorporaciones a la comparsa de Tino Tovar son: Francisco Joaquín Fernández Sito (director), Francisco Javier Oliva Peluki, José Joaquín Carrascosa, Jesús Antonio Aranda Fito, Miguel Ángel Gómez, Francisco Javier Marín, Eugenio Marín, José Otero y José Muñoz.
@@ -162,62 +162,62 @@ INSERT INTO agrupacion (codAgrupacion, nombre, tipo, musica, director, clasifica
 
 /* fecha */
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('1', '1', '2012-00-00');
+('1', '1', '2012-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('1', '2', '2014-00-00');
+('1', '2', '2014-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('1', '3', '2010-00-00');
+('1', '3', '2010-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('1', '4', '2007-00-00');
+('1', '4', '2007-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('1', '5', '2003-00-00');
+('1', '5', '2003-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('2', '6', '2017-00-00');
+('2', '6', '2017-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('2', '7', '2014-00-00');
+('2', '7', '2014-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('2', '8', '2012-00-00');
+('2', '8', '2012-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('2', '9', '2013-00-00');
+('2', '9', '2013-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('2', '10', '1985-00-00');
+('2', '10', '1985-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('3', '11', '2016-00-00');
+('3', '11', '2016-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('3', '12', '2008-00-00');
+('3', '12', '2008-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('3', '13', '2005-00-00');
+('3', '13', '2005-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('3', '14', '2001-00-00');
+('3', '14', '2001-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('3', '15', '1996-00-00');
+('3', '15', '1996-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('4', '16', '2017-00-00');
+('4', '16', '2017-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('4', '17', '2016-00-00');
+('4', '17', '2016-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('4', '18', '2002-00-00');
+('4', '18', '2002-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('4', '19', '1995-00-00');
+('4', '19', '1995-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('4', '20', '1991-00-00');
+('4', '20', '1991-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('5', '21', '2017-00-00');
+('5', '21', '2017-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('5', '22', '2014-00-00');
+('5', '22', '2014-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('5', '23', '2013-00-00');
+('5', '23', '2013-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('5', '24', '2012-00-00');
+('5', '24', '2012-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('5', '25', '2009-00-00');
+('5', '25', '2009-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('6', '26', '2016-00-00');
+('6', '26', '2016-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('6', '27', '2015-00-00');
+('6', '27', '2015-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('6', '28', '2012-00-00');
+('6', '28', '2012-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('6', '29', '2011-00-00');
+('6', '29', '2011-01-01');
 INSERT INTO fecha (codAutor, codAgrupacion, fecha) VALUES
-('6', '30', '2009-00-00');
+('6', '30', '2009-01-01');

@@ -82,7 +82,6 @@
               }
               $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
               if ($valid) {
-                var_dump($target_file);
                 move_uploaded_file($tmp_file, $target_file);
                 $query="SELECT * FROM autor WHERE nombre='".$_POST["nombre"]."' and apellidos='".$_POST["apellidos"]."'";
                 if ($result = $connection->query($query)) {
@@ -136,9 +135,15 @@
           <?php if (isset($_GET["borrar"])): ?>
             <?php
             $cod = $_GET["borrar"];
-            $query="DELETE FROM autor WHERE codautor='$cod'";
-            if ($connection->query($query)) {
-              header('Location: autor.php');
+            $query5="SELECT foto from autor where codAutor='$cod'";
+            if ($result = $connection->query($query5)) {
+              while ($obj = $result->fetch_object()) {
+                unlink($obj->foto);
+                $query4="DELETE FROM autor WHERE codAutor='$cod'";
+                if ($connection->query($query4)) {
+                  header('Location: autor.php');
+                }
+              }
             }
             ?>
           <?php endif; ?>

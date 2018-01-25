@@ -27,6 +27,7 @@
     }
     include_once("libreria.php");
     menu();
+    $comentario = true;
     ?>
     <div class="container">
       <div class="row">
@@ -72,7 +73,7 @@
                     ?>
                   </tr>
                 </table>
-                <input type="submit" name="" value="Enviar" class='btn btn-warning' required>
+                <input type="submit" name="" value="Insertar" class='btn btn-warning' required>
               </center>
             </form>
           <?php else: ?>
@@ -98,6 +99,7 @@
               <center>
                 </a><a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
               </center>";
+              $comentario = false;
             }
             while ($obj = $result->fetch_object()) {
               if ($obj->nombre!=$repetido) {
@@ -124,76 +126,75 @@
           ?>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <hr>
-          <h3 id='pad'><u>Comenta:</u></h3>
-          <form method="post">
-            <center>
-            <p class="clasificacion">
-              <input id="radio1" type="radio" name="estrellas" value="5">
-              <label for="radio1">★</label>
-              <input id="radio2" type="radio" name="estrellas" value="4">
-              <label for="radio2">★</label>
-              <input id="radio3" type="radio" name="estrellas" value="3">
-              <label for="radio3">★</label>
-              <input id="radio4" type="radio" name="estrellas" value="2">
-              <label for="radio4">★</label>
-              <input id="radio5" type="radio" name="estrellas" value="1">
-              <label for="radio5">★</label>
-            </p>
-            <textarea name="comentario" rows="4" style="margin: 0px; width: 80%;" required></textarea><br></br>
-            <input type="submit" name="" value="comentario" class='btn btn-warning'>
-            </center>
-          </form>
-        </div>
-
-        <?php if (isset($_POST["comentario"]) && isset($_POST["estrellas"])): ?>
-          <?php
-          $query2="SELECT * from agrupacion a join letra l on a.codagrupacion=l.codagrupacion where l.codagrupacion= ".$_GET["codAgrupacion"]."";
-          if ($result = $connection->query($query2)) {
-            while ($obj = $result->fetch_object()) {
-              $letra=$obj->codLetra;
-              $query2="SELECT * from usuario where usuario='".$_SESSION["usuario"]."'";
-              if ($result = $connection->query($query2)) {
-                while ($obj = $result->fetch_object()) {
-                  $codusuario=$obj->codUsuario;
-                  $query4="INSERT into comentario values('".$codusuario."', '".$letra."', '".nl2br($_POST['comentario'])."', '".$_POST['estrellas']."');";
-                  if ($connection->query($query4)) {
-                    echo "Comentado";
-                  } else {
-                    echo "
-                    <center>
-                      <p>Ya tienes un comentario</p>
-                    </center>";
+      <?php if ($comentario==true): ?>
+        <div class="row">
+          <div class="col-md-12">
+            <hr>
+            <h3 id='pad'><u>Comenta:</u></h3>
+            <form method="post">
+              <center>
+              <p class="clasificacion">
+                <input id="radio1" type="radio" name="estrellas" value="5">
+                <label for="radio1">★</label>
+                <input id="radio2" type="radio" name="estrellas" value="4">
+                <label for="radio2">★</label>
+                <input id="radio3" type="radio" name="estrellas" value="3">
+                <label for="radio3">★</label>
+                <input id="radio4" type="radio" name="estrellas" value="2">
+                <label for="radio4">★</label>
+                <input id="radio5" type="radio" name="estrellas" value="1">
+                <label for="radio5">★</label>
+              </p>
+              <textarea name="comentario" rows="4" style="margin: 0px; width: 80%;" required></textarea><br></br>
+              <input type="submit" name="" value="comentario" class='btn btn-warning'>
+              </center>
+            </form>
+          </div>
+          <?php if (isset($_POST["comentario"]) && isset($_POST["estrellas"])): ?>
+            <?php
+            $query2="SELECT * from agrupacion a join letra l on a.codagrupacion=l.codagrupacion where l.codagrupacion= ".$_GET["codAgrupacion"]."";
+            if ($result = $connection->query($query2)) {
+              while ($obj = $result->fetch_object()) {
+                $letra=$obj->codLetra;
+                $query2="SELECT * from usuario where usuario='".$_SESSION["usuario"]."'";
+                if ($result = $connection->query($query2)) {
+                  while ($obj = $result->fetch_object()) {
+                    $codusuario=$obj->codUsuario;
+                    $query4="INSERT into comentario values('".$codusuario."', '".$letra."', '".nl2br($_POST['comentario'])."', '".$_POST['estrellas']."');";
+                    if ($connection->query($query4)) {
+                    } else {
+                      echo "
+                      <center>
+                        <p>Ya tienes un comentario</p>
+                      </center>";
+                    }
                   }
                 }
               }
             }
-          }
-          ?>
-        <?php endif; ?>
-
-        <div class="col-md-12">
-          <hr style="margin-bottom:50px">
-          <?php
-          $query="SELECT * from usuario u join comentario c on u.codusuario=c.codusuario join letra l on l.codletra=c.codletra where codagrupacion= ".$_GET["codAgrupacion"]." ";
-          if ($result = $connection->query($query)) {
-            while ($obj = $result->fetch_object()) {
-              echo "
-              <center>
-                <div class='comentario'>
-                  <p id='der'>El usuario <b>".$obj->usuario."</b> ha puntuado con un <b>".$obj->puntuacion."</b> y ha dicho esto: </p>
-                    <p id='der'>  - ".$obj->comentario."</p>
-                </div>
-              </center>
-              <br></br>
-              ";
+            ?>
+          <?php endif; ?>
+          <div class="col-md-12">
+            <hr style="margin-bottom:50px">
+            <?php
+            $query="SELECT * from usuario u join comentario c on u.codusuario=c.codusuario join letra l on l.codletra=c.codletra where codagrupacion= ".$_GET["codAgrupacion"]." ";
+            if ($result = $connection->query($query)) {
+              while ($obj = $result->fetch_object()) {
+                echo "
+                <center>
+                  <div class='comentario'>
+                    <p id='der'>El usuario <b>".$obj->usuario."</b> ha puntuado con un <b>".$obj->puntuacion."</b> y ha dicho esto: </p>
+                      <p id='der'>  - ".$obj->comentario."</p>
+                  </div>
+                </center>
+                <br></br>
+                ";
+              }
             }
-          }
-          ?>
+            ?>
+          </div>
         </div>
-      </div>
+      <?php endif; ?>
     </div>
     <?php
     copyright();

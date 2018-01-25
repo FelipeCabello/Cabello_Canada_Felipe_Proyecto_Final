@@ -93,7 +93,7 @@
                     <td><input class="form-control" type="file" name="image" required /></td>
                   </tr>
                 </table>
-                <input type="submit" name="" value="Enviar" class='btn btn-warning' required>
+                <input type="submit" name="" value="Insertar" class='btn btn-warning' required>
               </center>
             </form>
             <?php if (isset($_POST["localidad"])): ?>
@@ -166,9 +166,15 @@
       <?php if (isset($_GET["borrar"])): ?>
         <?php
         $cod = $_GET["borrar"];
-        $query4="DELETE FROM agrupacion WHERE codAgrupacion='$cod'";
-        if ($connection->query($query4)) {
-          header('Location: grupo.php');
+        $query5="SELECT foto from agrupacion where codAgrupacion='$cod'";
+        if ($result = $connection->query($query5)) {
+          while ($obj = $result->fetch_object()) {
+            unlink($obj->foto);
+            $query4="DELETE FROM agrupacion WHERE codAgrupacion='$cod'";
+            if ($connection->query($query4)) {
+              header('Location: grupo.php');
+            }
+          }
         }
         ?>
       <?php endif; ?>
