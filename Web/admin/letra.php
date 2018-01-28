@@ -8,15 +8,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <title>Oh, Cádiz!</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="../imagenes/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../imagenes/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../estilo.css">
-  </head>
+  <?php include_once("../libreria.php"); head(); ?>
   <body>
     <?php
     $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
@@ -25,7 +17,6 @@
         printf("Connection failed: %s\n", $connection->connect_error);
         exit();
     }
-    include_once("libreria.php");
     menu();
     $comentario = true;
     ?>
@@ -34,11 +25,11 @@
         <div class="col-md-12">
           <?php if (!isset($_POST["pase"])): ?>
             <form action="letra.php" method="post">
-              <h3 id='pad'>Inserta las letras</h3>
+              <h3>Inserta las letras</h3>
               <center>
-                <table>
+                <table style="width:80%; margin:20px">
                   <tr>
-                    <td>Pase:</td>
+                    <td id="formu">Pase:</td>
                     <td>
                       <select class="form-control" name="pase" required>
                         <option value="Preliminares">Preliminares</option>
@@ -49,23 +40,23 @@
                     </td>
                   </tr>
                   <tr>
-                    <td style="width:200px">Presentación:</td>
+                    <td id="formu">Presentación:</td>
                     <td><textarea class="form-control" name="presentacion" rows="4" placeholder="Escribe aquí..." required></textarea></td>
                   </tr>
                   <tr>
-                    <td>Primer pasodoble: </td>
+                    <td id="formu">Primer pasodoble: </td>
                     <td><textarea class="form-control" name="pasodobleUno" rows="4" placeholder="Escribe aquí..." required></textarea></td>
                   </tr>
                   <tr>
-                    <td>Segundo pasodoble: </td>
+                    <td id="formu">Segundo pasodoble: </td>
                     <td><textarea class="form-control" name="pasodobleDos" rows="4" placeholder="Escribe aquí..." required></textarea></td>
                   </tr>
                   <tr>
-                    <td>Cuples pasodoble: </td>
+                    <td id="formu">Cuples pasodoble: </td>
                     <td><textarea class="form-control" name="cuples" rows="4" placeholder="Escribe aquí..." required></textarea></td>
                   </tr>
                   <tr>
-                    <td>Popurri: </td>
+                    <td id="formu">Popurri: </td>
                     <td><textarea class="form-control" name="popurri" rows="4" placeholder="Escribe aquí..." required></textarea></td>
                     <?php
                     $codigo=$_GET["codAgrupacion"];
@@ -198,8 +189,9 @@
     </div>
     <?php
     copyright();
+    script();
+    exit();
     ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
   </body>
 </html>

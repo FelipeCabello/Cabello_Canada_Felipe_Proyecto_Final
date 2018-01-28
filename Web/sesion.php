@@ -12,12 +12,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="imagenes/favicon.ico" type="image/x-icon">
     <link rel="icon" href="imagenes/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="estilo.css">
   </head>
   <body>
     <?php
-    include_once("usuario/libreria.php");
+    include_once("libreria.php");
     $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
     $connection->set_charset("utf8");
     if ($connection->connect_errno) {
@@ -26,8 +26,8 @@
     }
     ?>
     <div class="container">
-      <div class="row">
-        <div class="col-md-6">
+      <div class="row align-items-center">
+        <div class="col-sm-12 col-md-6">
           <center>
             <img class="img-sesion" src="imagenes/oh.png" alt="logo">
             <p style="color: #231F20; font-size:80px">
@@ -35,20 +35,20 @@
             </p>
           </center>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-12 col-md-6">
           <?php if ( !isset($_GET["accion"]) || $_GET["accion"]=="inicio" || $_GET["accion"]!="registro"): ?>
             <center>
               <form method="post">
-                <h3 id="pad" >Inicia sesión</h3>
-                <input style="width:50%; display: inline;" class="form-control" type='text' name='user' placeholder="Usuario"> <br></br>
-                <input style="width:50%; display: inline;" class="form-control" type='password' name='password' placeholder="Contraseña"> <br></br>
+                <h3>Inicia sesión</h3>
+                <input style="width:50%; display: inline;" class="form-control" type='text' name='user' placeholder="Usuario" required> <br></br>
+                <input style="width:50%; display: inline;" class="form-control" type='password' name='password' placeholder="Contraseña" required> <br></br>
                 <input type="submit" value="Entra" class="btn btn-warning">
               <form>
             </center>
             <center>
               <hr style="width: 60%">
-              <h3 style="padding-top: 10px">¿No tienes cuenta todavia?</h3>
-              <a href="sesion.php?accion=registro"><b id="pad">Regístrate aquí</b></a><br></br>
+              <h3>¿No tienes cuenta todavia?</h3>
+              <a href="sesion.php?accion=registro"><b>Regístrate aquí</b></a><br></br>
             </center>
             <?php if (isset($_POST["user"]) && isset($_POST["password"])): ?>
               <?php
@@ -80,16 +80,16 @@
           <?php else: ?>
             <center>
               <form method="post">
-                <h3 id="pad" >Resgístrate</h3>
-                <input style="width:50%; display: inline;" class="form-control" type='text' name='user' placeholder="Usuario"> <br></br>
-                <input style="width:50%; display: inline;" class="form-control" type='email' name='email' placeholder="Email"> <br></br>
-                <input style="width:50%; display: inline;" class="form-control" type='password' name='password' placeholder="Contraseña"> <br></br>
+                <h3>Resgístrate</h3>
+                <input style="width:50%; display: inline;" class="form-control" type='text' name='user' placeholder="Usuario" required> <br></br>
+                <input style="width:50%; display: inline;" class="form-control" type='email' name='email' placeholder="Email" required> <br></br>
+                <input style="width:50%; display: inline;" class="form-control" type='password' name='password' placeholder="Contraseña" required> <br></br>
                 <input type="submit" value="Registrate" class="btn btn-warning">
               <form>
             </center>
             <center>
               <hr style="width: 60%">
-              <a href="sesion.php?accion=inicio"> <b id="pad">Inicia sesion aquí</b></a><br></br>
+              <a href="sesion.php?accion=inicio"> <b>Inicia sesion aquí</b></a><br></br>
             </center>
             <?php if (isset($_POST["email"])): ?>
               <?php
@@ -116,11 +116,11 @@
         </div>
       </div>
     </div>
+    <script src="bootstrap/jquery/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
     <?php
     copyright();
-    unset($connection);
+    exit();
     ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>

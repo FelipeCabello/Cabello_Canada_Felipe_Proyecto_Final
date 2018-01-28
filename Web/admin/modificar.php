@@ -8,15 +8,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <title>Oh, Cádiz!</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="../imagenes/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../imagenes/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../estilo.css">
-  </head>
+  <?php include_once("../libreria.php"); head(); ?>
   <body>
     <?php
     $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
@@ -27,7 +19,6 @@
     }
     ?>
     <?php
-    include_once("libreria.php");
     menu();
     ?>
     <div class="container">
@@ -45,33 +36,33 @@
                     <h3 id='pad'>Modifica el autor ".$obj->nombre." ".$obj->apellidos."</h3>
                     <center><img src='".$obj->foto."' alt='autor' class='img img-rounded' style='width:50%'></center>
                     <center>
-                      <table>
+                      <table style='width:80%; margin:20px'>
                         <tr>
-                          <td>Nombre: </td>
+                          <td id='formu'>Nombre: </td>
                           <td><input class='form-control' type='text' name='nombre' value='".$obj->nombre."' required></td>
                         </tr>
                         <tr>
-                          <td>Apellidos: </td>
+                          <td id='formu'>Apellidos: </td>
                           <td><input class='form-control' type='text' name='apellidos' value='".$obj->apellidos."' required></td>
                         </tr>
                         <tr>
-                          <td>Apodo: </td>
+                          <td id='formu'>Apodo: </td>
                           <td><input class='form-control' type='text' name='apodo' value='".$obj->apodo."' required></td>
                         </tr>
                         <tr>
-                          <td style='width:200px'>Fecha Nacimiento: </td>
+                          <td id='formu'>Fecha Nacimiento: </td>
                           <td><input class='form-control' type='date' name='fechaNacimiento' value='".$obj->fechaNacimiento."' required></td>
                         </tr>
                         <tr>
-                          <td>Premios: </td>
+                          <td id='formu'>Premios: </td>
                           <td><input class='form-control' type='text' name='premios' value='".$obj->premios."' required></td>
                         </tr>
                         <tr>
-                          <td>Biografia: </td>
+                          <td id='formu'>Biografia: </td>
                           <td><textarea class='form-control' name='biografia' rows='4' required>".$obj->biografia."</textarea></td>
                         </tr>
                         <tr>
-                          <td>Foto: </td>
+                          <td id='formu'>Foto: </td>
                           <td><input class='form-control' type='file' name='image' /></td>
                         </tr>
                         <tr>
@@ -101,42 +92,42 @@
                     <h3 id='pad'>Modifica el autor ".$obj->nombre."</h3>
                     <center><img src='".$obj->foto."' alt='agrupacion' class='img img-rounded' style='width:50%'></center>
                     <center>
-                      <table>
+                      <table style='width:80%; margin:20px'>
                         <tr>
                           <td><input type='hidden' name='codAgrupacion' value='".$obj->codagrupacion."' required></td>
                           <td><input type='hidden' name='fotoagrupacion' value='".$obj->foto."' required></td>
                         </tr>
 
                         <tr>
-                          <td>Nombre: </td>
+                          <td id='formu'>Nombre: </td>
                           <td><input class='form-control' type='text' name='nombre' value='".$obj->nombre."' required></td>
                         </tr>
                         <tr>
-                          <td>Tipo: </td>
+                          <td id='formu'>Tipo: </td>
                           <td><input class='form-control' type='text' name='tipo' value='".$obj->tipo."' required></td>
                         </tr>
                         <tr>
-                          <td>Música: </td>
+                          <td id='formu'>Música: </td>
                           <td><input class='form-control' type='text' name='musica' value='".$obj->musica."' required></td>
                         </tr>
                         <tr>
-                          <td style='width:200px'>Director: </td>
+                          <td id='formu'>Director: </td>
                           <td><input class='form-control' type='text' name='director' value='".$obj->director."' required></td>
                         </tr>
                         <tr>
-                          <td>Clasificacion: </td>
+                          <td id='formu'>Clasificacion: </td>
                           <td><input class='form-control' type='text' name='clasificacion' value='".$obj->clasificacion."' required></td>
                         </tr>
                         <tr>
-                          <td>Año: </td>
+                          <td id='formu'>Año: </td>
                           <td><input class='form-control' type='date' name='fecha' value='".$obj->fecha."' required></td>
                         </tr>
                         <tr>
-                          <td>Localidad: </td>
+                          <td id='formu'>Localidad: </td>
                           <td><input class='form-control' type='text' name='localidad' value='".$obj->localidad."' required></td>
                         </tr>
                         <tr>
-                          <td>Foto: </td>
+                          <td id='formu'>Foto: </td>
                           <td><input class='form-control' type='file' name='imagen'></td>
                         </tr>
                         <tr>
@@ -189,9 +180,15 @@
                 $valid= true;
                 if (file_exists($target_file)) {
                   # Si la imagen coincide con la que ya tenia, solo haremos un update de todo lo demas
-                  $query5="UPDATE agrupacion set nombre='".$_POST['nombre']."', tipo='".$_POST['tipo']."', musica='".$_POST['musica']."',
-                  director='".$_POST['director']."', clasificacion='".$_POST['clasificacion']."', localidad='".$_POST['localidad']."',
-                  foto='".$_POST['fotoagrupacion']."' WHERE codAgrupacion='".$_POST['codAgrupacion']."'";
+                  $query5="UPDATE agrupacion
+                  set nombre='".$_POST['nombre']."',
+                  tipo='".$_POST['tipo']."',
+                  musica='".$_POST['musica']."',
+                  director='".$_POST['director']."',
+                  clasificacion='".$_POST['clasificacion']."',
+                  localidad='".$_POST['localidad']."',
+                  foto='".$_POST['fotoagrupacion']."'
+                  WHERE codAgrupacion='".$_POST['codAgrupacion']."'";
                   if ($result = $connection->query($query5)) {
                     $query6="UPDATE fecha set fecha='".$_POST['fecha']."' where codAgrupacion='".$_POST['codAgrupacion']."'";
                     if ($result = $connection->query($query6)) {
@@ -205,9 +202,15 @@
                 if ($valid) {
                   var_dump($target_file);
                   move_uploaded_file($tmp_file, $target_file);
-                  $query3="UPDATE agrupacion set nombre='".$_POST['nombre']."', tipo='".$_POST['tipo']."', musica='".$_POST['musica']."',
-                  director='".$_POST['director']."', clasificacion='".$_POST['clasificacion']."', localidad='".$_POST['localidad']."',
-                  foto='$target_file' WHERE codAgrupacion='".$_POST['codAgrupacion']."'";
+                  $query3="UPDATE agrupacion
+                  set nombre='".$_POST['nombre']."',
+                  tipo='".$_POST['tipo']."',
+                  musica='".$_POST['musica']."',
+                  director='".$_POST['director']."',
+                  clasificacion='".$_POST['clasificacion']."',
+                  localidad='".$_POST['localidad']."',
+                  foto='$target_file'
+                  WHERE codAgrupacion='".$_POST['codAgrupacion']."'";
                   if ($result = $connection->query($query3)) {
                     $query4="UPDATE fecha set fecha='".$_POST['fecha']."' WHERE codAgrupacion='".$_POST['codAgrupacion']."';";
                     if ($result = $connection->query($query4)) {
@@ -224,8 +227,8 @@
     </div>
     <?php
     copyright();
+    script();
+    exit();
     ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>

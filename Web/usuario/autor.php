@@ -8,15 +8,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <title>Oh, Cádiz!</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="../imagenes/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../imagenes/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../estilo.css">
-  </head>
+  <?php include_once("../libreria.php"); head(); ?>
   <body>
     <?php
     $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
@@ -27,20 +19,19 @@
     }
     ?>
     <?php
-    include_once("libreria.php");
     menu();
     ?>
     <div class="container">
       <div class="row">
         <?php if (!isset($_GET["codAutor"])): ?>
-          <div class="col-md-5">
+          <div class="col-md-6">
             <center><img src="../imagenes/falla.jpg" alt="falla" class="img img-rounded"></center>
           </div>
-          <div class="col-md-7">
+          <div class="col-md-6">
             <center>
-              <table>
+              <table style="width: 300px;">
                 <tr>
-                  <th id='size'>- Autores del carnaval -</th>
+                  <th id='tit_tabla'>- Autores del carnaval -</th>
                 </tr>
                 <?php
                 $query="SELECT * from autor order by nombre";
@@ -48,7 +39,7 @@
                   while ($obj = $result->fetch_object()) {
                     echo "
                     <tr>
-                    <td><a href='autor.php?codAutor=".$obj->codAutor."'>".$obj->nombre." ".$obj->apellidos."</a></td>
+                      <td><a href='autor.php?codAutor=".$obj->codAutor."'>".$obj->nombre." ".$obj->apellidos."</a></td>
                     <tr>";
                   }
                 }
@@ -61,7 +52,8 @@
             <?php
             $codigo=$_GET["codAutor"];
             echo "
-            <table>
+            <center>
+            <table style='width: 300px;'>
               <tr>
                 <th>Otros autores</th>
               </tr>";
@@ -78,7 +70,7 @@
                 }
               }
             }
-            echo "</table>";
+            echo "</table></center>";
             ?>
           </div>
           <div class="col-md-8">
@@ -88,13 +80,16 @@
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
                 echo "
-                <h3 id='pad'><u>".$obj->nombre." ".$obj->apellidos.": </u></h3>
-                <center>
-                  <img src='".$obj->foto."' alt='autor' class='img img-rounded'>
-                </center>
-                <p style='padding-top:20px'>Conocido como ".$obj->apodo."</p>
-                <p>Premios: ".$obj->premios."</p>
-                <p>Nació en ".$obj->fechaNacimiento."</p>
+                <h3><u>".$obj->nombre." ".$obj->apellidos.": </u></h3>
+                <center><img src='".$obj->foto."' alt='autor' class='img img-rounded'></center>
+                <dl class='dl-horizontal' style='padding-top:20px'>
+                <dt>Apodo</dt>
+                <dd>".$obj->apodo."</dd>
+                <dt>Premios</dt>
+                <dd>".$obj->premios."</dd>
+                <dt>Fecha nacimiento</dt>
+                <dd>".$obj->fechaNacimiento."</dd>
+                </dl>
                 <p>".nl2br($obj->biografia)."</p>";
               }
             }
@@ -106,9 +101,8 @@
 
     <?php
     copyright();
+    script();
     exit();
     ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -8,15 +8,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <title>Oh, Cádiz!</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="../imagenes/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../imagenes/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../estilo.css">
-  </head>
+  <?php include_once("../libreria.php"); head(); ?>
   <body>
     <?php
     $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
@@ -25,9 +17,6 @@
         printf("Connection failed: %s\n", $connection->connect_error);
         exit();
     }
-    ?>
-    <?php
-    include_once("libreria.php");
     menu();
     ?>
     <div class="container">
@@ -35,35 +24,35 @@
         <?php if (!isset($_GET["codAutor"]) && !isset($_GET["borrar"])): ?>
           <div class="col-md-12">
             <form action="autor.php" method="post" enctype="multipart/form-data">
-              <h3 id='pad'>Inserta un autor</h3>
+              <h3>Inserta un autor</h3>
               <center>
-                <table>
+                <table style="width:80%; margin:20px" >
                   <tr>
-                    <td>Nombre: </td>
+                    <td id="formu">Nombre: </td>
                     <td><input class="form-control" type='text' name='nombre' placeholder="Por ejemplo: Juan Carlos" required></td>
                   </tr>
                   <tr>
-                    <td>Apellidos: </td>
+                    <td id="formu">Apellidos: </td>
                     <td><input class="form-control" type='text' name='apellidos' placeholder="Por ejemplo: Aragón" required></td>
                   </tr>
                   <tr>
-                    <td>Apodo: </td>
+                    <td id="formu">Apodo: </td>
                     <td><input class="form-control" type='text' name='apodo' placeholder="Por ejemplo: El Cabeza" required></td>
                   </tr>
                   <tr>
-                    <td style="width:200px">Fecha Nacimiento: </td>
+                    <td id="formu">Fecha Nacimiento: </td>
                     <td><input class="form-control" type='date' name='fechaNacimiento' required></td>
                   </tr>
                   <tr>
-                    <td>Premios: </td>
+                    <td id="formu">Premios: </td>
                     <td><input class="form-control" type='text' name='premios' placeholder='X primeros premios, X segundos y X terceros' required></td>
                   </tr>
                   <tr>
-                    <td>Biografia: </td>
+                    <td id="formu">Biografia: </td>
                     <td><textarea class="form-control" name="biografia" rows="4" placeholder="Escribe aquí..." required></textarea></td>
                   </tr>
                   <tr>
-                    <td>Foto: </td>
+                    <td id="formu">Foto: </td>
                     <td><input class="form-control" type="file" name="image" required /></td>
                   </tr>
                 </table>
@@ -91,7 +80,7 @@
                     $query2="INSERT INTO autor VALUES(DEFAULT, '".$_POST["nombre"]."','".$_POST["apellidos"]."','".$_POST["apodo"]."','".$_POST["fechaNacimiento"]."','".$_POST["biografia"]."','".$_POST["premios"]."', '$target_file')";
                     if ($result = $connection->query($query2)) {
                     } else {
-                      echo "Puede que haya puesto algun campo mal";
+                      echo "Puede que haya puesto algún campo mal";
                     }
                   }
                 }
@@ -111,9 +100,9 @@
           </div>
           <div class="col-md-7">
             <center>
-              <table>
+              <table style='width:80%; margin:20px'>
                 <tr>
-                  <th id='size'>- Autores del carnaval -</th>
+                  <th id='tit_tabla'>- Autores del carnaval -</th>
                 </tr>
                 <?php
                 $query="SELECT * from autor order by nombre";
@@ -153,7 +142,7 @@
             echo "
             <table>
               <tr>
-                <th>Otros autores</th>
+                <th id='tit_tabla'>Otros autores</th>
               </tr>";
             $query="SELECT * from autor order by nombre";
             if ($result = $connection->query($query)) {
@@ -178,13 +167,16 @@
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
                 echo "
-                <h3 id='pad'><u>".$obj->nombre." ".$obj->apellidos.": </u></h3>
-                <center>
-                  <img src='".$obj->foto."' alt='autor' class='img img-rounded'>
-                </center>
-                <p style='padding-top:20px'>Conocido como ".$obj->apodo."</p>
-                <p>Premios: ".$obj->premios."</p>
-                <p>Nació en ".$obj->fechaNacimiento."</p>
+                <h3><u>".$obj->nombre." ".$obj->apellidos.": </u></h3>
+                <center><img src='".$obj->foto."' alt='autor' class='img img-rounded'></center>
+                <dl class='dl-horizontal' style='padding-top:20px'>
+                <dt>Apodo</dt>
+                <dd>".$obj->apodo."</dd>
+                <dt>Premios</dt>
+                <dd>".$obj->premios."</dd>
+                <dt>Fecha nacimiento</dt>
+                <dd>".$obj->fechaNacimiento."</dd>
+                </dl>
                 <p>".nl2br($obj->biografia)."</p>";
               }
             }
@@ -196,9 +188,9 @@
 
     <?php
     copyright();
+    script();
     exit();
     ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -8,15 +8,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <title>Oh, Cádiz!</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="../imagenes/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../imagenes/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../estilo.css">
-  </head>
+  <?php include_once("../libreria.php"); head(); ?>
   <body>
     <?php
     $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
@@ -25,7 +17,6 @@
         printf("Connection failed: %s\n", $connection->connect_error);
         exit();
     }
-    include_once("libreria.php");
     menu();
     ?>
     <?php if (!isset($_POST["buscar"]) && !isset($_GET["codAgrupacion"]) && !isset($_GET["borrar"])): ?>
@@ -33,11 +24,11 @@
         <div class="row">
           <div class="col-md-12">
             <form action="grupo.php" method="post" enctype="multipart/form-data">
-              <h3 id='pad'>Inserta una agrupacion</h3>
+              <h3>Inserta una agrupacion</h3>
               <center>
-                <table>
+                <table style="width:80%; margin:20px" >
                   <tr>
-                    <td>Autor:</td>
+                    <td id="formu">Autor:</td>
                     <td>
                       <select name='codautor' class="form-control" required>
                         <?php
@@ -54,11 +45,11 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>Nombre:</td>
+                    <td id="formu">Nombre:</td>
                     <td><input class="form-control" type='text' name='name' placeholder="Por ejemplo: La Serenissia" required></td>
                   </tr>
                   <tr>
-                    <td>Tipo:</td>
+                    <td id="formu">Tipo:</td>
                     <td>
                       <select class="form-control" name="tipo">
                         <option value="Coro">Coro</option>
@@ -69,27 +60,27 @@
                     </td>
                   </tr>
                   <tr>
-                    <td style="width:200px">Autor de la música:</td>
+                    <td id="formu">Autor de la música:</td>
                     <td><input class="form-control" type='text' name='musica' placeholder="Por ejemplo: Juan Carlos Aragón Becerra" required></td>
                   </tr>
                   <tr>
-                    <td>Director:</td>
+                    <td id="formu">Director:</td>
                     <td><input class="form-control" type='text' name='director' placeholder="Por ejemplo: Vicente Lázaro García" required></td>
                   </tr>
                   <tr>
-                    <td>Clasificación:</td>
+                    <td id="formu">Clasificación:</td>
                     <td><input class="form-control" type='text' name='clasificacion' placeholder='Por ejemplo: Segundo premio' required></td>
                   </tr>
                   <tr>
-                    <td>Localidad:</td>
+                    <td id="formu">Localidad:</td>
                     <td><input class="form-control" type='text' name='localidad' placeholder='Por ejemplo: Cádiz' required></td>
                   </tr>
                   <tr>
-                    <td>Año:</td>
+                    <td id="formu">Año:</td>
                     <td><input class="form-control" type='date' name='fecha' required></td>
                   </tr>
                   <tr>
-                    <td>Foto:</td>
+                    <td id="formu">Foto:</td>
                     <td><input class="form-control" type="file" name="image" required /></td>
                   </tr>
                 </table>
@@ -128,14 +119,14 @@
           </div>
           <div class="col-md-12">
             <center>
-              <h5 style="color:white">Así lo ve un usuario</h5>
+              <h5 style="color: white">Así lo ve un usuario</h5>
             </center>
           </div>
           <div class="col-md-5">
             <center><img src="../imagenes/letras.jpg" alt="comparsa" class="img img-rounded">
             <form method="post">
               <h3 id="pad">Busca tu agrupacion:</h3>
-              <input type='search' name='buscar'> <br></br>
+              <input type='search' name='buscar' required> <br></br>
               <input type="submit" value="Buscar" class="btn btn-warning">
             </form>
             </center>
@@ -143,8 +134,8 @@
           <div class="col-md-7">
             <center>
             <?php
-            echo "<table>";
-            echo "<tr><th id='size'> - Agrupacion - </th><tr>";
+            echo "<table style='width:80%; margin:20px'>";
+            echo "<tr><th id='tit_tabla'> - Agrupacion - </th><tr>";
             $query="SELECT * from agrupacion order by nombre";
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
@@ -178,8 +169,7 @@
         }
         ?>
       <?php endif; ?>
-      <div class="container">
-        <div class="row">
+
           <?php if (isset($_GET["codAgrupacion"])): ?>
             <?php
             $codigo=$_GET["codAgrupacion"];
@@ -187,24 +177,31 @@
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
                 echo "
-                <div class='col-md-6'>
-                  <center>
-                    <img src='".$obj->foto."' class='img img-rounded'>
-                  </center>
-                </div>
-                <div class='col-md-6'>
-                  <center>
-                    <table>
-                      <tr><th id='size'> - Info - </th><tr>
-                      <tr><td><b>".$obj->nombre."</b></td></tr>
-                      <tr><td>Fecha: ".$obj->fecha."</td></tr>
-                      <tr><td>Director: ".$obj->director."</td></tr>
-                      <tr><td>Música: ".$obj->musica."</td></tr>
-                      <tr><td>Clasificación: ".$obj->clasificacion."</td></tr>
-                      <tr><td><center><a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a>
-                      <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a></center></td></tr>
-                    </table>
-                  </center>
+                <div class='container'>
+                  <div class='row'>
+                    <div class='col-md-6'>
+                      <center>
+                        <img src='".$obj->foto."' alt='' class='img img-rounded'>
+                      </center>
+                    </div>
+                    <div class='col-md-6'>
+                    <center>
+                      <dl class='dl-horizontal' style='width:500px'>
+                        <dt>Nombre</dt>
+                        <dd>".$obj->nombre."</dd>
+                        <dt>Fecha</dt>
+                        <dd>".$obj->fecha."</dd>
+                        <dt>Director</dt>
+                        <dd>".$obj->director."</dd>
+                        <dt>Música</dt>
+                        <dd>".$obj->musica."</dd>
+                        <dt>Clasificación</dt>
+                        <dd>".$obj->clasificacion."</dd>
+                      </dl>
+                      <a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
+                    </center>
+                    </div>
+                  </div>
                 </div>
                 ";
               }
@@ -214,28 +211,33 @@
           <?php if (isset($_POST["buscar"])): ?>
             <?php
             $buscar = $_POST["buscar"];
-            $query="SELECT * from agrupacion where nombre like '%".$buscar."%'";
+            $query="SELECT *, year(fecha) as fecha from agrupacion a join fecha f on a.codagrupacion=f.codagrupacion where nombre like '%".$buscar."%'";
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
-                $codigo=$obj->codAgrupacion;
                 echo "
                 <div class='container'>
                   <div class='row'>
                     <div class='col-md-6'>
-                      <center><img src='".$obj->foto."' class='img img-rounded'></center>
+                      <center>
+                        <img src='".$obj->foto."' alt='' class='img img-rounded'>
+                      </center>
                     </div>
-                  <div class='col-md-6'>
-                    <center>
-                      <table>
-                        <tr><th id='size'> - Info - </th><tr>
-                        <tr><td><b>".$obj->nombre."</b></td></tr>
-                        <tr><td>Director: ".$obj->director."</td></tr>
-                        <tr><td>Música: ".$obj->musica."</td></tr>
-                        <tr><td>Clasificación: ".$obj->clasificacion."</td></tr>
-                        <tr><td><center><a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a>
-                          <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a></center></td></tr>
-                      </table>
-                    </center>
+                    <div class='col-md-6'>
+                      <center>
+                        <dl class='dl-horizontal' style='width:500px'>
+                        <dt>Nombre</dt>
+                        <dd>".$obj->nombre."</dd>
+                        <dt>Fecha</dt>
+                        <dd>".$obj->fecha."</dd>
+                        <dt>Director</dt>
+                        <dd>".$obj->director."</dd>
+                        <dt>Música</dt>
+                        <dd>".$obj->musica."</dd>
+                        <dt>Clasificación</dt>
+                      <dd>".$obj->clasificacion."</dd>
+                      </dl>
+                      <a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
+                      </center>
                     </div>
                   </div>
                 </div>
@@ -249,9 +251,9 @@
     <?php endif; ?>
     <?php
     copyright();
+    script();
     exit();
     ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
   </body>
 </html>
