@@ -11,15 +11,21 @@
   <?php include_once("../libreria.php"); head(); ?>
   <body>
     <?php
-    $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
-    $connection->set_charset("utf8");
-    if ($connection->connect_errno) {
-        printf("Connection failed: %s\n", $connection->connect_error);
-        exit();
-    }
+    $connection = basedatos();
     menu();
     $comentario = true;
     ?>
+    <?php if (isset($_GET["borrar"]) ): ?>
+      <?php
+      $cod = $_GET["borrar"];
+      $codagr = $_GET["codAgrupacion"];
+      $query6="Delete from comentario where codletra=(select codletra from letra l join agrupacion a on l.codagrupacion = a.codagrupacion where a.codagrupacion='$codagr') and codusuario='$cod';";
+      if ($connection->query($query6)) {
+        $codagr = $_GET["codAgrupacion"];
+        header("Location: letra.php?codAgrupacion=$codagr");
+      }
+      ?>
+    <?php endif; ?>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -94,7 +100,7 @@
             }
             while ($obj = $result->fetch_object()) {
               if ($obj->nombre!=$repetido) {
-                echo "<h3 id='pad'><u>".$obj->nombre.", ".$obj->tipo.": </u></h3><br>";
+                echo "<h3><u>".$obj->nombre.", ".$obj->tipo.": </u></h3><br>";
                 $repetido=$obj->nombre;
               }
               if (isset($obj->presentacion)) {
@@ -121,7 +127,7 @@
         <div class="row">
           <div class="col-md-12">
             <hr>
-            <h3 id='pad'><u>Comenta:</u></h3>
+            <h3><u>Comenta:</u></h3>
             <form method="post">
               <center>
               <p class="clasificacion">
@@ -171,27 +177,30 @@
             $query="SELECT * from usuario u join comentario c on u.codusuario=c.codusuario join letra l on l.codletra=c.codletra where codagrupacion= ".$_GET["codAgrupacion"]." ";
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
+                $codagr = $_GET["codAgrupacion"];
+                $codusu = $obj->codUsuario;
                 echo "
-                <center>
-                  <div class='comentario'>
-                    <p id='der'>El usuario <b>".$obj->usuario."</b> ha puntuado con un <b>".$obj->puntuacion."</b> y ha dicho esto: </p>
-                      <p id='der'>  - ".$obj->comentario."</p>
+                <div class='row comentario align-items-center'>
+                  <div class='col-10'>
+                    <p>El usuario <b>".$obj->usuario."</b> ha puntuado con un <b>".$obj->puntuacion."</b> y ha dicho esto: <br>
+                      - ".$obj->comentario." <a style='float:right' href='letra.php?borrar=$codusu&codAgrupacion=$codagr'></p>
                   </div>
-                </center>
-                <br></br>
-                ";
+                  <div class='col-2'>
+                    <img src='../imagenes/borrar.png' alt='delete' style='width:35px'></a>
+                  </div>
+                </div> <br></br>";
               }
             }
             ?>
           </div>
         </div>
       <?php endif; ?>
+
     </div>
     <?php
     copyright();
     script();
     exit();
     ?>
-    <script src="../js/bootstrap.min.js"></script>
   </body>
 </html>

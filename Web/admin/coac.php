@@ -16,8 +16,8 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12"> <center>
-          <table>
-            <h3><u>SESIÓN 1 - MARTES 9 DE ENERO DE 2018</u></h3>
+          <h3><u>SESIÓN 1 - MARTES 9 DE ENERO DE 2018</u></h3>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -28,7 +28,7 @@
               <tr>
                 <td class="tabla">COMPARSA</td>
                 <td class="tabla">La sonrisa de Dios</td>
-                <td class="tabla">No me toques las bolas</td>
+                <td class="tabla">No me toques las bolasf</td>
                 <td class="tabla">Preliminar</td>
               </tr>
               <tr>
@@ -70,7 +70,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 2 - MIÉRCOLES 10 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -123,7 +123,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 3 - JUEVES 11 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -134,7 +134,8 @@
               <tr>
                 <td class="tabla">CORO</td>
                 <td class="tabla">Rockola</td>
-                <td class="tabla">La reina de la noche <i>(4º PREMIO)</i></td><td class="tabla">Preliminar</td>
+                <td class="tabla">La reina de la noche <i>(4º PREMIO)</i></td>
+                <td class="tabla">Preliminar</td>
               </tr>
               <tr>
                 <td class="tabla">CHIRIGOTA</td>
@@ -175,7 +176,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 4 - VIERNES 12 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -234,7 +235,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 5 - SÁBADO 13 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -287,7 +288,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 6 - DOMINGO 14 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -340,7 +341,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 7 - LUNES 15 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -393,7 +394,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 8 - MARTES 16 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -446,7 +447,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 9 - MIÉRCOLES 17 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -499,7 +500,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 10 - JUEVES 18 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -552,7 +553,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 11 - VIERNES 19 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -611,7 +612,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 12 - SÁBADO 20 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -670,7 +671,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 13 - DOMINGO 21 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -723,7 +724,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 14 - LUNES 22 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -776,7 +777,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 15 - MARTES 23 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -823,7 +824,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 16 - MIÉRCOLES 24 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -876,7 +877,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 17 - JUEVES 25 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -929,7 +930,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 18 - VIERNES 26 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -988,7 +989,7 @@
             </tbody>
           </table>
           <h3><u>SESIÓN 19 - SÁBADO 27 DE ENERO DE 2018</u></h3>
-          <table>
+          <table id="tabla">
             <tbody>
               <tr>
                 <td class="tabla"><b>MODALIDAD</b></td>
@@ -1048,6 +1049,5 @@
     script();
     exit();
     ?>
-    <script src="../js/bootstrap.min.js"></script>
   </body>
 </html>

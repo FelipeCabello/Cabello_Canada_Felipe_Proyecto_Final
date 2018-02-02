@@ -11,21 +11,14 @@
   <?php include_once("../libreria.php"); head(); ?>
   <body>
     <?php
-    $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
-    $connection->set_charset("utf8");
-    if ($connection->connect_errno) {
-        printf("Connection failed: %s\n", $connection->connect_error);
-        exit();
-    }
-    ?>
-    <?php
+    $connection = basedatos();
     menu();
     ?>
     <div class="container">
-      <div class="row">
-        <?php if (!isset($_GET["codAutor"])): ?>
+      <?php if (!isset($_GET["codAutor"])): ?>
+        <div class="row align-items-center">
           <div class="col-md-6">
-            <center><img src="../imagenes/falla.jpg" alt="falla" class="img img-rounded"></center>
+            <center><img src="../imagenes/falla.jpg" alt="falla" class="img rounded"></center>
           </div>
           <div class="col-md-6">
             <center>
@@ -47,12 +40,14 @@
               </table>
             </center>
           </div>
-        <?php else: ?>
-          <div class="col-md-4">
+        </div>
+      <?php else: ?>
+        <div class="row">
+          <div class="col-md-4" style='margin-top:100px'>
             <?php
             $codigo=$_GET["codAutor"];
             echo "
-            <center>
+            <center >
             <table style='width: 300px;'>
               <tr>
                 <th>Otros autores</th>
@@ -81,24 +76,31 @@
               while ($obj = $result->fetch_object()) {
                 echo "
                 <h3><u>".$obj->nombre." ".$obj->apellidos.": </u></h3>
-                <center><img src='".$obj->foto."' alt='autor' class='img img-rounded'></center>
-                <dl class='dl-horizontal' style='padding-top:20px'>
-                <dt>Apodo</dt>
-                <dd>".$obj->apodo."</dd>
-                <dt>Premios</dt>
-                <dd>".$obj->premios."</dd>
-                <dt>Fecha nacimiento</dt>
-                <dd>".$obj->fechaNacimiento."</dd>
-                </dl>
-                <p>".nl2br($obj->biografia)."</p>";
+                <center><img src='".$obj->foto."' alt='autor' class='img rounded'></center>
+
+                <table>
+                  <tr>
+                  <td>Apodo</td>
+                  <td>".$obj->apodo."</td>
+                  <tr>
+                  <tr>
+                  <td>Premios</td>
+                  <td>".$obj->premios."</td>
+                  <tr>
+                  <tr>
+                  <td>Fecha nacimiento</td>
+                  <td>".$obj->fechaNacimiento."</td>
+                  <tr>
+                </table>
+                <p>".nl2br($obj->biografia)."</p>"
+                ;
               }
             }
             ?>
           </div>
-        <?php endif; ?>
-      </div>
+        </div>
+      <?php endif; ?>
     </div>
-
     <?php
     copyright();
     script();

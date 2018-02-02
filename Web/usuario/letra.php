@@ -11,15 +11,21 @@
   <?php include_once("../libreria.php"); head(); ?>
   <body>
     <?php
-    $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
-    $connection->set_charset("utf8");
-    if ($connection->connect_errno) {
-        printf("Connection failed: %s\n", $connection->connect_error);
-        exit();
-    }
+    $connection = basedatos();
     menu();
     $comentario=true;
     ?>
+    <?php if (isset($_GET["borrar"]) ): ?>
+      <?php
+      $cod = $_GET["borrar"];
+      $codagr = $_GET["codAgrupacion"];
+      $query="Delete from comentario where codletra=(select codletra from letra l join agrupacion a on l.codagrupacion = a.codagrupacion where a.codagrupacion='$codagr') and codusuario='$cod';";
+      if ($connection->query($query)) {
+        $codagr = $_GET["codAgrupacion"];
+        header("Location: letra.php?codAgrupacion=$codagr");
+      }
+      ?>
+    <?php endif; ?>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -80,7 +86,7 @@
                 <input id="radio5" type="radio" name="estrellas" value="1">
                 <label for="radio5">★</label>
               </p>
-              <textarea name="comentario" rows="4" style="margin: 0px; width: 80%;" required></textarea><br></br>
+              <textarea class='form-control' name="comentario" rows="4" style="margin: 0px; width: 80%;" required></textarea><br></br>
               <input type="submit" name="" value="comentario" class='btn btn-warning'>
               </center>
             </form>
@@ -112,18 +118,30 @@
           <div class="col-md-12">
             <hr style="margin-bottom:50px">
             <?php
-            $query="SELECT * from usuario u join comentario c on u.codusuario=c.codusuario join letra l on l.codletra=c.codletra where codagrupacion= ".$_GET["codAgrupacion"]." ";
+            $query="SELECT * from usuario u join comentario c on u.codusuario=c.codusuario join letra l on l.codletra=c.codletra where codagrupacion=' ".$_GET["codAgrupacion"]."' ";
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
-                echo "
-                <center>
-                  <div class='comentario'>
-                    <p id='der'>El usuario <b>".$obj->usuario."</b> ha puntuado con un <b>".$obj->puntuacion."</b> y ha dicho esto: </p>
-                      <p id='der'>  - ".$obj->comentario."</p>
-                  </div>
-                </center>
-                <br></br>
-                ";
+                $codagr = $_GET["codAgrupacion"];
+                $codusu = $obj->codUsuario;
+                if ($obj->usuario==$_SESSION["usuario"]) {
+                  echo "
+                  <div class='row comentario align-items-center'>
+                    <div class='col-10'>
+                      <p>El usuario <b>".$obj->usuario."</b> ha puntuado con un <b>".$obj->puntuacion."</b> y ha dicho esto: <br>
+                        - ".$obj->comentario." <a style='float:right' href='letra.php?borrar=$codusu&codAgrupacion=$codagr'></p>
+                    </div>
+                    <div class='col-2'>
+                      <img src='../imagenes/borrar.png' alt='delete' style='width:35px'></a>
+                    </div>
+                  </div> <br></br>";
+                } else {
+                  echo "
+                  <div class='row comentario'>
+                      <p>El usuario <b>".$obj->usuario."</b> ha puntuado con un <b>".$obj->puntuacion."</b> y ha dicho esto: <br>
+                        - ".$obj->comentario."</p>
+                  </div> <br></br>
+                  ";
+                }
               }
             }
             ?>

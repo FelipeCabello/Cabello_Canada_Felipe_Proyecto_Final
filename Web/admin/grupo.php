@@ -11,12 +11,7 @@
   <?php include_once("../libreria.php"); head(); ?>
   <body>
     <?php
-    $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
-    $connection->set_charset("utf8");
-    if ($connection->connect_errno) {
-        printf("Connection failed: %s\n", $connection->connect_error);
-        exit();
-    }
+    $connection = basedatos();
     menu();
     ?>
     <?php if (!isset($_POST["buscar"]) && !isset($_GET["codAgrupacion"]) && !isset($_GET["borrar"])): ?>
@@ -115,18 +110,17 @@
               }
               ?>
             <?php endif; ?>
-            <hr>
           </div>
-          <div class="col-md-12">
+          <div style="margin-top:20px" class="col-md-12">
             <center>
               <h5 style="color: white">Así lo ve un usuario</h5>
             </center>
           </div>
-          <div class="col-md-5">
-            <center><img src="../imagenes/letras.jpg" alt="comparsa" class="img img-rounded">
+          <div class="col-md-5" style="margin-top:100px">
+            <center><img src="../imagenes/letras.jpg" alt="comparsa" class="img rounded">
             <form method="post">
-              <h3 id="pad">Busca tu agrupacion:</h3>
-              <input type='search' name='buscar' required> <br></br>
+              <h3>Busca tu agrupacion:</h3>
+              <input type='search' name='buscar' class="form-control" required style="width:50%" required> <br></br>
               <input type="submit" value="Buscar" class="btn btn-warning">
             </form>
             </center>
@@ -169,7 +163,6 @@
         }
         ?>
       <?php endif; ?>
-
           <?php if (isset($_GET["codAgrupacion"])): ?>
             <?php
             $codigo=$_GET["codAgrupacion"];
@@ -178,26 +171,36 @@
               while ($obj = $result->fetch_object()) {
                 echo "
                 <div class='container'>
-                  <div class='row'>
+                  <div class='row align-items-center'>
                     <div class='col-md-6'>
                       <center>
-                        <img src='".$obj->foto."' alt='' class='img img-rounded'>
+                        <img src='".$obj->foto."' alt='' class='img rounded'>
                       </center>
                     </div>
                     <div class='col-md-6'>
+                    <table>
+                      <tr>
+                        <td>Nombre</td>
+                        <td>".$obj->nombre."</td>
+                      </tr>
+                      <tr>
+                      <td>Fecha</td>
+                      <td >".$obj->fecha."</td>
+                      </tr>
+                      <tr>
+                      <td >Director</td>
+                      <td >".$obj->director."</td>
+                      </tr>
+                      <tr>
+                      <td >Música</td>
+                      <td >".$obj->musica."</td>
+                      </tr>
+                      <tr>
+                      <td >Clasificación</td>
+                      <td >".$obj->clasificacion."</td>
+                      </tr>
+                    </table>
                     <center>
-                      <dl class='dl-horizontal' style='width:500px'>
-                        <dt>Nombre</dt>
-                        <dd>".$obj->nombre."</dd>
-                        <dt>Fecha</dt>
-                        <dd>".$obj->fecha."</dd>
-                        <dt>Director</dt>
-                        <dd>".$obj->director."</dd>
-                        <dt>Música</dt>
-                        <dd>".$obj->musica."</dd>
-                        <dt>Clasificación</dt>
-                        <dd>".$obj->clasificacion."</dd>
-                      </dl>
                       <a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
                     </center>
                     </div>
@@ -208,41 +211,52 @@
             }
             ?>
           <?php endif; ?>
+
           <?php if (isset($_POST["buscar"])): ?>
             <?php
             $buscar = $_POST["buscar"];
             $query="SELECT *, year(fecha) as fecha from agrupacion a join fecha f on a.codagrupacion=f.codagrupacion where nombre like '%".$buscar."%'";
             if ($result = $connection->query($query)) {
+              echo "<div class='container'>";
               while ($obj = $result->fetch_object()) {
                 echo "
-                <div class='container'>
-                  <div class='row'>
-                    <div class='col-md-6'>
-                      <center>
-                        <img src='".$obj->foto."' alt='' class='img img-rounded'>
-                      </center>
-                    </div>
-                    <div class='col-md-6'>
-                      <center>
-                        <dl class='dl-horizontal' style='width:500px'>
-                        <dt>Nombre</dt>
-                        <dd>".$obj->nombre."</dd>
-                        <dt>Fecha</dt>
-                        <dd>".$obj->fecha."</dd>
-                        <dt>Director</dt>
-                        <dd>".$obj->director."</dd>
-                        <dt>Música</dt>
-                        <dd>".$obj->musica."</dd>
-                        <dt>Clasificación</dt>
-                      <dd>".$obj->clasificacion."</dd>
-                      </dl>
-                      <a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
-                      </center>
-                    </div>
+                <div class='row align-items-center'>
+                  <div class='col-md-6'>
+                    <center>
+                      <img src='".$obj->foto."' alt='' class='img rounded'>
+                    </center>
+                  </div>
+                  <div class='col-md-6'>
+                  <table>
+                    <tr>
+                      <td>Nombre</td>
+                      <td>".$obj->nombre."</td>
+                    </tr>
+                    <tr>
+                    <td>Fecha</td>
+                    <td >".$obj->fecha."</td>
+                    </tr>
+                    <tr>
+                    <td >Director</td>
+                    <td >".$obj->director."</td>
+                    </tr>
+                    <tr>
+                    <td >Música</td>
+                    <td >".$obj->musica."</td>
+                    </tr>
+                    <tr>
+                    <td >Clasificación</td>
+                    <td >".$obj->clasificacion."</td>
+                    </tr>
+                  </table>
+                  <center>
+                    <a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
+                  </center>
                   </div>
                 </div>
                 ";
               }
+              echo "</div>";
             }
             ?>
           <?php endif; ?>
@@ -254,6 +268,5 @@
     script();
     exit();
     ?>
-    <script src="../js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -7,24 +7,29 @@
   }
 ?>
 <!DOCTYPE html>
-<html lang="es">
-  <?php include_once("../libreria.php"); head(); ?>
-  <body>
-    <?php
-    menu();
-    ?>
+<html lang="en">
+  <?php
+  include_once("../libreria.php");
+  head();
+  echo "<body>";
+  menu();
+  ?>
     <div class="container" >
-      <div class="row">
-        <div class="col-md-12">
-          <h2><u>Carnaval de Cádiz</u></h2>
-          <center>
-            <img style="width: 50%" class="img img-rounded" src="../imagenes/cartel.jpg" alt="cartel"><br>
-            <p>- Carnaval de Cádiz 2018 -</p>
-          </center>
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 ><u>Carnaval de Cádiz</u></h2>
           <p>
             La ciudad entera se vuelca con el carnaval, es una ocasión perfecta para conocerla y disfrutar del ingenio y la gracia de los gaditanos. Cádiz se transforma en una fiesta. Es época de Carnaval.<br></br>
             La música carnavalesca se oye por cualquier rincón de la ciudad, se ultiman los detalles de los disfraces (en Cádiz se conocen como "tipo"), algunos de ellos verdaderas obras de arte y el gaditano vive con toda su alma uno de los acontecimientos lúdicos más esperados, quizá de los carnavales españoles el que tiene una imagen más jocosa y divertida.<br></br>
           </p>
+        </div>
+        <div class="col-md-4">
+          <center><img style="margin-top: 15px;" class="img rounded" src="../imagenes/cartel.jpg" alt="cartel"><br>
+          <p>- Carnaval de Cádiz 2018 -</p></center>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
           <h2><u>COAC 2018</u></h2>
           <p>
             El Concurso Oficial de Agrupaciones Carnavalescas 2018 comenzará el 9 de enero, martes, a las 20:30 horas.<br></br>
@@ -38,9 +43,9 @@
         </div>
       </div>
     </div>
-    <?php
-    copyright();
-    script();
-    ?>
+  <?php
+  copyright();
+  script();
+  ?>
   </body>
 </html>

@@ -1,87 +1,99 @@
+/* ESTILO CUERPO */
 body {
-  padding-top: 50px;
-  background-color: #F9F9F9;
+  background-color: #d6d6d6;
   font-size: 18px;
   font-family: Helvetica;
 }
 
-div {
-  background-color: #EF7E56;
-  color: #231F20;
-}
-
-.img-sesion {
-  /* Logo al iniciar sesion */
-  padding: 30px;
-  width: 360px;
-}
-
-h3, h5, center, a, p, li>a  {
-  color: #231F20;
-}
-
-a:hover {
-  color: #000;
-  background-color: #f9a88b;
-}
-
-.navbar-toggle {
-  border: 1px solid #231F20 ;
-  background-color: #231F20;
-}
-
-.navbar {
-  border: 0px;
-  margin-top: 20px;
-}
-
-.navbar-inverse .navbar-brand {
-  color: #231F20;
-}
-
-.navbar-inverse .navbar-nav>li>a {
-  color: #231F20;
-}
-
-.nav>li:hover {
-  color: black;
-  background-color: #f9a88b
-}
-
-.img {
-  width: 80%;
+.container {
+  background-color: white;
+  padding: 0px;
+  -webkit-box-shadow: 0px 0px 22px 2px rgba(0,0,0,0.44);
+  -moz-box-shadow: 0px 0px 22px 2px rgba(0,0,0,0.44);
+  box-shadow: 0px 0px 22px 2px rgba(0,0,0,0.44);
 }
 
 .row {
-  padding-bottom: 20px;
+  padding: 20px;
+}
+/* ESTILO CUERPO */
+
+
+
+
+/* ESTILO IMAGENES */
+.img {
+  width: 80%;
+}
+/* ESTILO IMAGENES */
+
+
+
+
+/* ESTILO MENU */
+.navbar {
+  background-color: #c12a10;
 }
 
+.navbar-light .navbar-brand {
+  color: white
+}
+
+.navbar-light .navbar-nav .active>.nav-link  {
+  color: white;
+}
+
+.navbar-light .navbar-toggler {
+  background-color: white;
+  border: 1px solid gray;
+}
+/* ESTILO MENU */
+
+
+
+
+/* ESTILO TABLA */
 .tabla {
-  background-color: #f9a88b;
+  background-color: #d6d6d6;
+  width: 25%;
+  border: 1px solid gray;
 }
 
-h3 {
-  padding-top: 10px;
-  padding-bottom: 20px
-}
-
-dd {
-  text-align: left;
+#tabla {
+  width: 80%
 }
 
 #tit_tabla {
   font-size: 24px;
   padding: 10px 0px 20px 0px;
 }
+/* ESTILO TABLA */
 
 
 
-.form-control {
-  background-color: #F9F9F9;
+
+/* ESTILO OTROS */
+.aviso {
+  /* Texto error */
   color: #231F20;
-  font-size: 18px;
-  width: 100%;
-  height: auto;
+}
+
+h3  {
+  padding: 20px 0px 10px 0px;
+  color: black;
+}
+
+p {
+  margin: 5px
+}
+
+a {
+  color: black
+}
+
+a:hover {
+  color: white;
+  background-color: #c12a10;
 }
 
 #formu {
@@ -92,48 +104,36 @@ dd {
 td {
   padding: 5px;
 }
+/* ESTILO OTROS */
 
 
 
-.btn, .btn-warning {
-  /* Botones */
-  color: #F9F9F9;
-  background-color: #305973;
-  border-color: #305973;
-}
 
-.aviso {
-  /* Texto error */
-  color: #231F20;
-}
-
+/* ESTILO COMENTARIO */
 .comentario {
   width: 80%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 30px;
-  padding-right: 30px;
-  background-color: #f9a88b;
+  margin: auto;
+  padding: 10px 10px 10px 10px;
+  background-color: #d6d6d6;
   border: 1px solid #231F20;
 }
+/* ESTILO COMENTARIO */
 
-#insert {
-    width: 200px;
-    display: inline-block;
-    align-items: left;
+
+
+
+/* ESTILO BOTONES */
+.btn, .btn-warning {
+  color: white;
+  background-color: #c12a10;
+  border-color: #c12a10;
 }
+/* ESTILO BOTONES */
 
 
 
 
-
-
-
-
-
-
-/* Estilo para la puntuacion con estrellas */
-
+/* ESTILO ESTRELLAS */
 #form {
   width: 250px;
   margin: 0 auto;
@@ -153,7 +153,7 @@ input[type="radio"] {
 }
 
 label {
-  color: #ECF3F6;
+  color: #d6d6d6;
 }
 
 .clasificacion {
@@ -169,3 +169,4 @@ label:hover ~ label {
 input[type="radio"]:checked ~ label {
   color: #EAB64D;
 }
+/* ESTILO ESTRELLAS */

@@ -11,14 +11,7 @@
   <?php include_once("../libreria.php"); head(); ?>
   <body>
     <?php
-    $connection = new mysqli("localhost", "root", "Admin2015", "wikicarnaval", 3316);
-    $connection->set_charset("utf8");
-    if ($connection->connect_errno) {
-        printf("Connection failed: %s\n", $connection->connect_error);
-        exit();
-    }
-    ?>
-    <?php
+    $connection = basedatos();
     menu();
     ?>
     <div class="container">
@@ -33,8 +26,8 @@
                 while ($obj = $result->fetch_object()) {
                   echo "
                   <form action='modificar.php' method='post' enctype='multipart/form-data'>
-                    <h3 id='pad'>Modifica el autor ".$obj->nombre." ".$obj->apellidos."</h3>
-                    <center><img src='".$obj->foto."' alt='autor' class='img img-rounded' style='width:50%'></center>
+                    <h3>Modifica el autor ".$obj->nombre." ".$obj->apellidos."</h3>
+                    <center><img src='".$obj->foto."' alt='autor' class='img rounded' style='width:50%'></center>
                     <center>
                       <table style='width:80%; margin:20px'>
                         <tr>
@@ -89,8 +82,8 @@
                 while ($obj = $result->fetch_object()) {
                   echo "
                   <form action='modificar.php' method='post' enctype='multipart/form-data'>
-                    <h3 id='pad'>Modifica el autor ".$obj->nombre."</h3>
-                    <center><img src='".$obj->foto."' alt='agrupacion' class='img img-rounded' style='width:50%'></center>
+                    <h3>Modifica el autor ".$obj->nombre."</h3>
+                    <center><img src='".$obj->foto."' alt='agrupacion' class='img rounded' style='width:50%'></center>
                     <center>
                       <table style='width:80%; margin:20px'>
                         <tr>
