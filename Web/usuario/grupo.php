@@ -12,15 +12,15 @@
   <body>
     <?php
     $connection = basedatos();
-    menu();
     ?>
     <?php if (!isset($_GET["codAgrupacion"]) && !isset($_POST["nombre"])): ?>
-      <div class="container">
+      <div class="container" >
+        <?php menu(); ?>
         <div class="row">
           <div class="col-md-5" style="margin-top:100px">
             <center><img src="../imagenes/letras.jpg" alt="comparsa" class="img rounded">
             <form method="post">
-              <h3>Busca tu agrupacion:</h3>
+              <h3>Busca tu agrupación:</h3>
               <input type='search' name='nombre' class="form-control" required style="width:50%"> <br></br>
               <input type="submit" value="Buscar" class="btn btn-warning">
             </form>
@@ -30,7 +30,7 @@
             <center>
             <?php
             echo "<table >";
-            echo "<tr><th id='tit_tabla'> - Agrupacion - </th><th id='tit_tabla'> - Tipo - </th><tr>";
+            echo "<tr><th id='tit_tabla'> - Agrupación - </th><th id='tit_tabla'> - Tipo - </th><tr>";
             $query="SELECT * from agrupacion order by nombre";
             if ($result = $connection->query($query)) {
               while ($obj = $result->fetch_object()) {
@@ -54,6 +54,7 @@
         $query="SELECT *, year(fecha) as fecha from agrupacion a join fecha f on a.codagrupacion=f.codagrupacion where f.codAgrupacion='$codigo'";
         if ($result = $connection->query($query)) {
           echo "<div class='container'>";
+          menu();
           while ($obj = $result->fetch_object()) {
             echo "
             <div class='row align-items-center'>
@@ -101,6 +102,7 @@
       $query="SELECT *, year(fecha) as fecha from agrupacion a join fecha f on a.codagrupacion=f.codagrupacion where nombre like '%".$nombre."%'";
       if ($result = $connection->query($query)) {
         echo "<div class='container'>";
+        menu();
         while ($obj = $result->fetch_object()) {
           $codigo=$obj->codAgrupacion;
           echo "

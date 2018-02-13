@@ -12,12 +12,12 @@
   <body>
     <?php
     $connection = basedatos();
-    menu();
     ?>
-    <div class="container">
+    <div class="container" >
+      <?php menu(); ?>
       <div class="row">
         <div class="col-md-12">
-          <?php if (isset($_GET["codautor"]) || isset($_GET["codAgrupacion"])): ?>
+          <?php if (isset($_GET["codautor"]) || isset($_GET["codLetra"]) || isset($_GET["codAgrupacion"])): ?>
             <?php if (isset($_GET["codautor"])): ?>
               <!-- Codigo UPDATE autor -->
               <?php
@@ -134,6 +134,58 @@
               }
               ?>
             <?php endif; ?>
+            <?php if (isset($_GET["codLetra"])): ?>
+              <?php
+              $query="SELECT * from letra where codLetra='".$_GET["codLetra"]."'";
+              if ($result = $connection->query($query)) {
+                $obj = $result->fetch_object();
+                echo "
+                <form action='modificar.php' method='post'>
+                  <h3>Inserta las letras</h3>
+                  <center>
+                    <table class='table' style='width:80%; margin:20px'>
+                      <tr>
+                        <td id='formu'>Pase:</td>
+                        <td>
+                          <select class='form-control' name='pase' required>
+                            <option value='$obj->pase'>Opción sin modificar: $obj->pase</option>
+                            <option value='Preliminares'>Preliminares</option>
+                            <option value='Cuartos'>Cuartos</option>
+                            <option value='Semifinal'>Semifinal</option>
+                            <option value='Final'>Final</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td id='formu'>Presentación:</td>
+                        <td><textarea class='form-control' name='presentacion' required>$obj->presentacion</textarea></td>
+                      </tr>
+                      <tr>
+                        <td id='formu'>Primer pasodoble: </td>
+                        <td><textarea class='form-control' name='pasodobleUno' required>$obj->pasodobleUno</textarea></td>
+                      </tr>
+                      <tr>
+                        <td id='formu'>Segundo pasodoble: </td>
+                        <td><textarea class='form-control' name='pasodobleDos' required>$obj->pasodobleDos</textarea></td>
+                      </tr>
+                      <tr>
+                        <td id='formu'>Cuples pasodoble: </td>
+                        <td><textarea class='form-control' name='cuples' rows='4' required>$obj->cuples</textarea></td>
+                      </tr>
+                      <tr>
+                        <td id='formu'>Popurri: </td>
+                        <td><textarea class='form-control' name='popurri' required>$obj->popurri</textarea></td>
+                      </tr>
+                      <input type='hidden' name='codAgrupacion' value='$obj->codAgrupacion' required></td>
+                      <input type='hidden' name='codLetra' value='".$_GET['codLetra']."' required></td>
+                    </table>
+                    <input type='submit' name='changeletra' value='Insertar' class='btn btn-warning' required>
+                  </center>
+                </form>
+                ";
+              }
+              ?>
+            <?php endif; ?>
           <?php else: ?>
             <?php if (isset($_POST["biografia"])): ?>
               <!-- Si quieres hacer un update de Autor -->
@@ -185,7 +237,6 @@
                   if ($result = $connection->query($query5)) {
                     $query6="UPDATE fecha set fecha='".$_POST['fecha']."' where codAgrupacion='".$_POST['codAgrupacion']."'";
                     if ($result = $connection->query($query6)) {
-                      echo "adios";
                       header('Location: grupo.php');
                     }
                   }
@@ -213,6 +264,25 @@
                 }
                 ?>
               <?php endif; ?>
+            <?php endif; ?>
+            <?php if (isset($_POST["pasodobleDos"])): ?>
+              <?php
+              echo "hola";
+              $query="UPDATE letra set
+              codAgrupacion='".$_POST["codAgrupacion"]."',
+              pase='".$_POST["pase"]."',
+              presentacion='".$_POST["presentacion"]."',
+              pasodobleUno='".$_POST["pasodobleUno"]."',
+              pasodobleDos='".$_POST["pasodobleDos"]."',
+              cuples='".$_POST["cuples"]."',
+              popurri='".$_POST["popurri"]."'
+              where codLetra='".$_POST["codLetra"]."'";
+              echo $query;
+              if ($connection->query($query)) {
+                $codigo=$_POST["codAgrupacion"];
+                header("Location: letra.php?codAgrupacion=$codigo");
+              }
+              ?>
             <?php endif; ?>
           <?php endif; ?>
         </div>

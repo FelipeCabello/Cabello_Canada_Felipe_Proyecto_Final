@@ -12,7 +12,6 @@
   <body>
     <?php
     $connection = basedatos();
-    menu();
     $comentario=true;
     ?>
     <?php if (isset($_GET["borrar"]) ): ?>
@@ -26,7 +25,8 @@
       }
       ?>
     <?php endif; ?>
-    <div class="container">
+    <div class="container" >
+      <?php menu(); ?>
       <div class="row">
         <div class="col-md-12">
           <?php

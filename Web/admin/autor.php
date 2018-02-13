@@ -12,17 +12,16 @@
   <body>
     <?php
     $connection = basedatos();
-    menu();
     ?>
-    <div class="container">
-
+    <div class="container" >
+      <?php menu(); ?>
         <?php if (!isset($_GET["codAutor"]) && !isset($_GET["borrar"])): ?>
           <div class="row align-items-center">
             <div class="col-md-12">
               <form action="autor.php" method="post" enctype="multipart/form-data">
                 <h3>Inserta un autor</h3>
                 <center>
-                  <table style="width:80%; margin:20px" >
+                  <table  class="table" style="width:80%; margin:20px" >
                     <tr>
                       <td id="formu">Nombre: </td>
                       <td><input class="form-control" type='text' name='nombre' placeholder="Por ejemplo: Juan Carlos" required></td>
@@ -87,7 +86,7 @@
             </div>
             <div style="margin-top:20px" class="col-md-12">
               <center>
-                <h5 style="color:white">Así lo ve un usuario</h5>
+                <h5 style="color:gray">Así lo ve un usuario</h5>
               </center>
             </div>
             <div class="col-md-5">
@@ -168,7 +167,6 @@
                     echo "
                     <h3><u>".$obj->nombre." ".$obj->apellidos.": </u></h3>
                     <center><img src='".$obj->foto."' alt='autor' class='img rounded'></center>
-
                     <table>
                       <tr>
                       <td>Apodo</td>

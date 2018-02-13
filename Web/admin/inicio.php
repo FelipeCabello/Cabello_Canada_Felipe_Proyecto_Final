@@ -8,12 +8,14 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-  <?php include_once("../libreria.php"); head(); ?>
-  <body>
-    <?php
-    menu();
-    ?>
+  <?php
+  include_once("../libreria.php");
+  head();
+  echo "<body>";
+  $connection = basedatos();
+  ?>
     <div class="container" >
+      <?php menu(); ?>
       <div class="row align-items-center">
         <div class="col-md-8">
           <h2 ><u>Carnaval de Cádiz</u></h2>
@@ -45,6 +47,7 @@
     <?php
     copyright();
     script();
+    exit();
     ?>
   </body>
 </html>

@@ -12,16 +12,16 @@
   <body>
     <?php
     $connection = basedatos();
-    menu();
     ?>
     <?php if (!isset($_POST["buscar"]) && !isset($_GET["codAgrupacion"]) && !isset($_GET["borrar"])): ?>
-      <div class="container">
+      <div class="container" >
+        <?php menu(); ?>
         <div class="row">
           <div class="col-md-12">
             <form action="grupo.php" method="post" enctype="multipart/form-data">
               <h3>Inserta una agrupacion</h3>
               <center>
-                <table style="width:80%; margin:20px" >
+                <table class="table" style="width:80%; margin:20px" >
                   <tr>
                     <td id="formu">Autor:</td>
                     <td>
@@ -113,7 +113,7 @@
           </div>
           <div style="margin-top:20px" class="col-md-12">
             <center>
-              <h5 style="color: white">Así lo ve un usuario</h5>
+              <h5 style="color: gray">Así lo ve un usuario</h5>
             </center>
           </div>
           <div class="col-md-5" style="margin-top:100px">
@@ -168,46 +168,47 @@
             $codigo=$_GET["codAgrupacion"];
             $query="SELECT *, year(fecha) as fecha from agrupacion a join fecha f on a.codagrupacion=f.codagrupacion where f.codAgrupacion='$codigo'";
             if ($result = $connection->query($query)) {
+              echo "<div class='container'>";
+              menu();
               while ($obj = $result->fetch_object()) {
                 echo "
-                <div class='container'>
-                  <div class='row align-items-center'>
-                    <div class='col-md-6'>
-                      <center>
-                        <img src='".$obj->foto."' alt='' class='img rounded'>
-                      </center>
-                    </div>
-                    <div class='col-md-6'>
-                    <table>
-                      <tr>
-                        <td>Nombre</td>
-                        <td>".$obj->nombre."</td>
-                      </tr>
-                      <tr>
-                      <td>Fecha</td>
-                      <td >".$obj->fecha."</td>
-                      </tr>
-                      <tr>
-                      <td >Director</td>
-                      <td >".$obj->director."</td>
-                      </tr>
-                      <tr>
-                      <td >Música</td>
-                      <td >".$obj->musica."</td>
-                      </tr>
-                      <tr>
-                      <td >Clasificación</td>
-                      <td >".$obj->clasificacion."</td>
-                      </tr>
-                    </table>
+                <div class='row align-items-center'>
+                  <div class='col-md-6'>
                     <center>
-                      <a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
+                      <img src='".$obj->foto."' alt='' class='img rounded'>
                     </center>
-                    </div>
+                  </div>
+                  <div class='col-md-6'>
+                  <table>
+                    <tr>
+                      <td>Nombre</td>
+                      <td>".$obj->nombre."</td>
+                    </tr>
+                    <tr>
+                    <td>Fecha</td>
+                    <td >".$obj->fecha."</td>
+                    </tr>
+                    <tr>
+                    <td >Director</td>
+                    <td >".$obj->director."</td>
+                    </tr>
+                    <tr>
+                    <td >Música</td>
+                    <td >".$obj->musica."</td>
+                    </tr>
+                    <tr>
+                    <td >Clasificación</td>
+                    <td >".$obj->clasificacion."</td>
+                    </tr>
+                  </table>
+                  <center>
+                    <a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
+                  </center>
                   </div>
                 </div>
                 ";
               }
+              echo "</div>";
             }
             ?>
           <?php endif; ?>
@@ -218,6 +219,7 @@
             $query="SELECT *, year(fecha) as fecha from agrupacion a join fecha f on a.codagrupacion=f.codagrupacion where nombre like '%".$buscar."%'";
             if ($result = $connection->query($query)) {
               echo "<div class='container'>";
+              menu();
               while ($obj = $result->fetch_object()) {
                 echo "
                 <div class='row align-items-center'>

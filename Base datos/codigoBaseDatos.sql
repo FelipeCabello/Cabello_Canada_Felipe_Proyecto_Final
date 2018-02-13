@@ -8,8 +8,9 @@ create table usuario(
   codUsuario INTEGER NOT NULL AUTO_INCREMENT,
   usuario VARCHAR(25) NOT NULL,
   password VARCHAR(64) NOT NULL,
-  email VARCHAR(25) NOT NULL,
+  email VARCHAR(50) NOT NULL,
   rol VARCHAR(25) NOT NULL,
+  foto VARCHAR(100),
   primary key (codUsuario)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

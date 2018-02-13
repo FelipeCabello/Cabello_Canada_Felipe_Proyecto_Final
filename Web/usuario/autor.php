@@ -12,9 +12,9 @@
   <body>
     <?php
     $connection = basedatos();
-    menu();
     ?>
     <div class="container">
+      <?php menu(); ?>
       <?php if (!isset($_GET["codAutor"])): ?>
         <div class="row align-items-center">
           <div class="col-md-6">
@@ -43,12 +43,12 @@
         </div>
       <?php else: ?>
         <div class="row">
-          <div class="col-md-4" style='margin-top:100px'>
+          <div class="col-md-4">
             <?php
             $codigo=$_GET["codAutor"];
             echo "
             <center >
-            <table style='width: 300px;'>
+            <table>
               <tr>
                 <th>Otros autores</th>
               </tr>";
