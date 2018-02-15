@@ -37,7 +37,7 @@
               echo "
               <p>Lo sentimos, no hemos encontrado ninguna letra de esta agrupación.</p>
               <center>
-                </a><a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
+                <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
               </center>";
               $comentario=false;
             }

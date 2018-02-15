@@ -120,15 +120,13 @@
       <?php endif; ?>
     <?php else: ?>
       <div class="fondo col-md-5">
-        <form class="form-signin" method="post" enctype='multipart/form-data'>
+        <form class="form-signin" method="post">
           <center><img class="mb-4" src="imagenes/oh.png" alt="" width="150">
             <h1 class="h3 mb-3 font-weight-normal">Registrarte</h1></center>
             <label class="sr-only">Usuario</label>
             <input name="user" type="text" class="form-control" placeholder="Usuario" style="margin-top:10px" required autofocus>
             <label class="sr-only">Email address</label>
             <input name="email" type="email" class="form-control" placeholder="Email" style="margin-top:10px" required>
-            <label class="sr-only">Foto</label>
-            <input name="imagen" type="file" class="form-control" style="margin-top:10px" required>
             <label class="sr-only">Password</label>
             <input name="password" type="password" class="form-control" placeholder="Contraseña" style="margin-top:10px" required>
             <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top:20px">Registrar</button>
@@ -138,35 +136,24 @@
             <h3>¿Ya tienes cuenta?</h3>
             <a href="sesion.php?accion=inicio"> <b>Inicia sesión aquí</b></a><br></br>
           </center>
-          <?php if (isset($_FILES['imagen'])): ?>
+          <?php if (isset($_POST["email"])): ?>
           <?php
             $usuario = $_POST["user"];
             $password = $_POST["password"];
             $email = $_POST["email"];
 
-            $tmp_file = $_FILES['imagen']['tmp_name'];
-            $target_dir = "imagenes/perfil/";
-            $target_file = strtolower($target_dir . basename($_FILES['imagen']['name']));
-            $valid= true;
-
-            $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
-            if ($valid) {
-              var_dump($target_file);
-              move_uploaded_file($tmp_file, $target_file);
-              #Comprobación de usuarios duplicados
-              $query="SELECT * from usuario WHERE usuario='$usuario' or email='$email'";
-              if ($result = $connection->query($query)) {
-                if ($result->num_rows==1) {
-                  echo "<center><p class='aviso'>Usuario o email ya existe, vuelvalo a intentar.</p></center><br></br>";
-                } else {
-                  #registro del usuario
-                  $query2="INSERT into usuario (usuario, password, email, rol, foto)
-                  values ('$usuario', md5('$password'), '$email', 'usuario', '$target_file')";
-                  if ($connection->query($query2)) {
-                    $_SESSION["foto"]=$target_file;
-                    $_SESSION["usuario"]=$usuario;
-                    header('Location: usuario/inicio.php');
-                  }
+            $query="SELECT * from usuario WHERE usuario='$usuario' or email='$email'";
+            if ($result = $connection->query($query)) {
+              if ($result->num_rows==1) {
+                echo "<center><p class='aviso'>Usuario o email ya existe, vuelvalo a intentar.</p></center><br></br>";
+              } else {
+                #registro del usuario
+                $query2="INSERT into usuario (usuario, password, email, rol, foto)
+                values ('$usuario', md5('$password'), '$email', 'usuario', '../imagenes/perfil/usuario.png')";
+                if ($connection->query($query2)) {
+                  $_SESSION["foto"]="../imagenes/perfil/usuario.png";
+                  $_SESSION["usuario"]=$usuario;
+                  header('Location: usuario/inicio.php');
                 }
               }
             }
