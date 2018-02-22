@@ -61,6 +61,16 @@ body {
   font-size: 24px;
   padding: 10px 0px 20px 0px;
 }
+
+#tabla {
+  vertical-align: top;
+  text-align: right;
+  padding-right: 10px;
+}
+
+table {
+  margin: 10px
+}
 /* ESTILO TABLA */
 
 

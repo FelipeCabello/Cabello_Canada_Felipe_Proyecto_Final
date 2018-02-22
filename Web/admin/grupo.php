@@ -92,6 +92,15 @@
                 echo "Sorry, file already exists.";
                 $valid = false;
               }
+              if ($_FILES['imagen']['size'] > (2048000)) {
+                $valid = false;
+                echo "<center><p style='padding-top:20px; color:red'>Oops!  Tu imagen es demasido grande.<p></center>";
+              }
+              $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
+              if ($file_extension!="jpg" && $file_extension!="jpeg" && $file_extension!="png" && $file_extension!="gif") {
+                $valid = false;
+                echo "<center><p style='padding-top:20px; color:red'>Solo están permitidos archivos con extensión JPG, JPEG, PNG y GIF.<p></center>";
+              }
               $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
               if ($valid) {
                 move_uploaded_file($tmp_file, $target_file);
@@ -179,28 +188,30 @@
                     </center>
                   </div>
                   <div class='col-md-6'>
+                  <center>
                   <table>
                     <tr>
-                      <td>Nombre</td>
+                      <td id='tabla'><b>Nombre</b></td>
                       <td>".$obj->nombre."</td>
                     </tr>
                     <tr>
-                    <td>Fecha</td>
-                    <td >".$obj->fecha."</td>
+                      <td id='tabla'><b>Fecha</b></td>
+                      <td >".$obj->fecha."</td>
                     </tr>
                     <tr>
-                    <td >Director</td>
-                    <td >".$obj->director."</td>
+                      <td id='tabla'><b>Director</b></td>
+                      <td >".$obj->director."</td>
                     </tr>
                     <tr>
-                    <td >Música</td>
-                    <td >".$obj->musica."</td>
+                      <td id='tabla'><b>Música</b></td>
+                      <td >".$obj->musica."</td>
                     </tr>
                     <tr>
-                    <td >Clasificación</td>
-                    <td >".$obj->clasificacion."</td>
+                      <td id='tabla'><b>Clasificación</b></td>
+                      <td >".$obj->clasificacion."</td>
                     </tr>
                   </table>
+                  </center>
                   <center>
                     <a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
                   </center>
@@ -229,28 +240,30 @@
                     </center>
                   </div>
                   <div class='col-md-6'>
+                  <center>
                   <table>
                     <tr>
-                      <td>Nombre</td>
+                      <td id='tabla'><b>Nombre</b></td>
                       <td>".$obj->nombre."</td>
                     </tr>
                     <tr>
-                    <td>Fecha</td>
-                    <td >".$obj->fecha."</td>
+                      <td id='tabla'><b>Fecha</b></td>
+                      <td >".$obj->fecha."</td>
                     </tr>
                     <tr>
-                    <td >Director</td>
-                    <td >".$obj->director."</td>
+                      <td id='tabla'><b>Director</b></td>
+                      <td >".$obj->director."</td>
                     </tr>
                     <tr>
-                    <td >Música</td>
-                    <td >".$obj->musica."</td>
+                      <td id='tabla'><b>Música</b></td>
+                      <td >".$obj->musica."</td>
                     </tr>
                     <tr>
-                    <td >Clasificación</td>
-                    <td >".$obj->clasificacion."</td>
+                      <td id='tabla'><b>Clasificación</b></td>
+                      <td >".$obj->clasificacion."</td>
                     </tr>
                   </table>
+                  </center>
                   <center>
                     <a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
                   </center>

@@ -76,22 +76,22 @@
               while ($obj = $result->fetch_object()) {
                 echo "
                 <h3><u>".$obj->nombre." ".$obj->apellidos.": </u></h3>
-                <center><img src='".$obj->foto."' alt='autor' class='img rounded'></center>
-
+                <center><img src='".$obj->foto."' alt='autor' class='img rounded'>
                 <table>
                   <tr>
-                  <td>Apodo</td>
-                  <td>".$obj->apodo."</td>
+                    <td id='tabla'><b>Apodo</b></td>
+                    <td>".$obj->apodo."</td>
                   <tr>
                   <tr>
-                  <td>Premios</td>
-                  <td>".$obj->premios."</td>
+                    <td id='tabla'><b>Premios</b></td>
+                    <td>".$obj->premios."</td>
                   <tr>
                   <tr>
-                  <td>Fecha nacimiento</td>
-                  <td>".$obj->fechaNacimiento."</td>
+                    <td id='tabla'><b>Fecha nacimiento</b></td>
+                    <td>".$obj->fechaNacimiento."</td>
                   <tr>
                 </table>
+                </center>
                 <p>".nl2br($obj->biografia)."</p>"
                 ;
               }

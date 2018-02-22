@@ -195,6 +195,15 @@
                 $target_dir = "../imagenes/autores/";
                 $target_file = strtolower($target_dir . basename($_FILES['image']['name']));
                 $valid= true;
+                if ($_FILES['imagen']['size'] > (2048000)) {
+                  $valid = false;
+                  echo "<center><p style='padding-top:20px; color:red'>Oops!  Tu imagen es demasido grande.<p></center>";
+                }
+                $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
+                if ($file_extension!="jpg" && $file_extension!="jpeg" && $file_extension!="png" && $file_extension!="gif") {
+                  $valid = false;
+                  echo "<center><p style='padding-top:20px; color:red'>Solo están permitidos archivos con extensión JPG, JPEG, PNG y GIF.<p></center>";
+                }
                 if (file_exists($target_file)) {
                   # Si la imagen coincide con la que ya tenia, solo haremos un update de todo lo demas
                   $query2="UPDATE autor set nombre='".$_POST['nombre']."', apellidos='".$_POST['apellidos']."', apodo='".$_POST['apodo']."', fechaNacimiento='".$_POST['fechaNacimiento']."', biografia='".$_POST['biografia']."', premios='".$_POST['premios']."', foto='".$_POST['foto']."' WHERE codAutor='".$_POST['codAutor']."'";
@@ -223,6 +232,15 @@
                 $target_dir = "../imagenes/grupo/";
                 $target_file = strtolower($target_dir . basename($_FILES['imagen']['name']));
                 $valid= true;
+                if ($_FILES['imagen']['size'] > (2048000)) {
+                  $valid = false;
+                  echo "<center><p style='padding-top:20px; color:red'>Oops!  Tu imagen es demasido grande.<p></center>";
+                }
+                $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
+                if ($file_extension!="jpg" && $file_extension!="jpeg" && $file_extension!="png" && $file_extension!="gif") {
+                  $valid = false;
+                  echo "<center><p style='padding-top:20px; color:red'>Solo están permitidos archivos con extensión JPG, JPEG, PNG y GIF.<p></center>";
+                }
                 if (file_exists($target_file)) {
                   # Si la imagen coincide con la que ya tenia, solo haremos un update de todo lo demas
                   $query5="UPDATE agrupacion
@@ -267,7 +285,6 @@
             <?php endif; ?>
             <?php if (isset($_POST["pasodobleDos"])): ?>
               <?php
-              echo "hola";
               $query="UPDATE letra set
               codAgrupacion='".$_POST["codAgrupacion"]."',
               pase='".$_POST["pase"]."',

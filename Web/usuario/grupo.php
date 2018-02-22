@@ -64,28 +64,30 @@
                 </center>
               </div>
               <div class='col-md-6'>
+              <center>
               <table>
                 <tr>
-                  <td>Nombre</td>
+                  <td id='tabla'><b>Nombre</b></td>
                   <td>".$obj->nombre."</td>
                 </tr>
                 <tr>
-                <td>Fecha</td>
-                <td >".$obj->fecha."</td>
+                  <td id='tabla'><b>Fecha</b></td>
+                  <td >".$obj->fecha."</td>
                 </tr>
                 <tr>
-                <td >Director</td>
-                <td >".$obj->director."</td>
+                  <td id='tabla'><b>Director</b></td>
+                  <td >".$obj->director."</td>
                 </tr>
                 <tr>
-                <td >Música</td>
-                <td >".$obj->musica."</td>
+                  <td id='tabla'><b>Música</b></td>
+                  <td >".$obj->musica."</td>
                 </tr>
                 <tr>
-                <td >Clasificación</td>
-                <td >".$obj->clasificacion."</td>
+                  <td id='tabla'><b>Clasificación</b></td>
+                  <td >".$obj->clasificacion."</td>
                 </tr>
               </table>
+              </center>
               <center>
                 <a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
               </center>
@@ -113,28 +115,30 @@
               </center>
             </div>
             <div class='col-md-6'>
+            <center>
             <table>
               <tr>
-                <td>Nombre</td>
+                <td id='tabla'><b>Nombre</b></td>
                 <td>".$obj->nombre."</td>
               </tr>
               <tr>
-              <td>Fecha</td>
-              <td >".$obj->fecha."</td>
+                <td id='tabla'><b>Fecha</b></td>
+                <td >".$obj->fecha."</td>
               </tr>
               <tr>
-              <td >Director</td>
-              <td >".$obj->director."</td>
+                <td id='tabla'><b>Director</b></td>
+                <td >".$obj->director."</td>
               </tr>
               <tr>
-              <td >Música</td>
-              <td >".$obj->musica."</td>
+                <td id='tabla'><b>Música</b></td>
+                <td >".$obj->musica."</td>
               </tr>
               <tr>
-              <td >Clasificación</td>
-              <td >".$obj->clasificacion."</td>
+                <td id='tabla'><b>Clasificación</b></td>
+                <td >".$obj->clasificacion."</td>
               </tr>
             </table>
+            </center>
             <center>
               <a href='letra.php?codAgrupacion=".$codigo."'><input type='button' value='Letras' class='btn btn-warning'></a> <a href='grupo.php'><input type='button' value='Volver' class='btn btn-warning'></a>
             </center>

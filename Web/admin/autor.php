@@ -64,6 +64,15 @@
                   echo "Sorry, file already exists.";
                   $valid = false;
                 }
+                if ($_FILES['imagen']['size'] > (2048000)) {
+			            $valid = false;
+                  echo "<center><p style='padding-top:20px; color:red'>Oops!  Tu imagen es demasido grande.<p></center>";
+		            }
+                $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
+                if ($file_extension!="jpg" && $file_extension!="jpeg" && $file_extension!="png" && $file_extension!="gif") {
+                  $valid = false;
+                  echo "<center><p style='padding-top:20px; color:red'>Solo están permitidos archivos con extensión JPG, JPEG, PNG y GIF.<p></center>";
+                }
                 $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
                 if ($valid) {
                   move_uploaded_file($tmp_file, $target_file);
@@ -120,17 +129,45 @@
             <?php if (isset($_GET["borrar"])): ?>
 
               <?php
+
+              // Guardo en $codigo las agrupaciones de este autor
               $cod = $_GET["borrar"];
-              $query5="SELECT foto from autor where codAutor='$cod'";
-              if ($result = $connection->query($query5)) {
+              $query="SELECT g.codagrupacion as codigo from autor a
+              join fecha f on a.codautor=f.codautor
+              join agrupacion g on g.codagrupacion=f.codagrupacion
+              where a.codautor='$cod'";
+              if ($result = $connection->query($query)) {
+                $codigoau = array();
                 while ($obj = $result->fetch_object()) {
-                  unlink($obj->foto);
-                  $query4="DELETE FROM autor WHERE codAutor='$cod'";
-                  if ($connection->query($query4)) {
-                    header('Location: autor.php');
+                  $codigoau[] = "$obj->codigo";
+                }
+
+                // Borro el autor y su foto de la carpeta
+                $query5="SELECT foto from autor where codAutor='$cod'";
+                if ($result = $connection->query($query5)) {
+                  while ($obj = $result->fetch_object()) {
+                    unlink($obj->foto);
+                    $query4="DELETE FROM autor WHERE codAutor='$cod'";
+                    if ($connection->query($query4)) {
+                    }
                   }
+
+                  // Borro sus agrupaciones
+                  foreach ($codigoau as $key) {
+                    $query2="SELECT foto from agrupacion where codagrupacion='$key'";
+                    if ($result = $connection->query($query2)) {
+                      while ($obj = $result->fetch_object()) {
+                        unlink($obj->foto);
+                        $query="DELETE FROM agrupacion where codagrupacion='$key'";
+                        if ($connection->query($query)) {
+                        }
+                      }
+                    }
+                  }
+                  header('Location: autor.php');
                 }
               }
+
               ?>
             <?php endif; ?>
             <div class="row">
@@ -166,21 +203,22 @@
                   while ($obj = $result->fetch_object()) {
                     echo "
                     <h3><u>".$obj->nombre." ".$obj->apellidos.": </u></h3>
-                    <center><img src='".$obj->foto."' alt='autor' class='img rounded'></center>
+                    <center><img src='".$obj->foto."' alt='autor' class='img rounded'>
                     <table>
                       <tr>
-                      <td>Apodo</td>
-                      <td>".$obj->apodo."</td>
+                        <td id='tabla'><b>Apodo</b></td>
+                        <td>".$obj->apodo."</td>
                       <tr>
                       <tr>
-                      <td>Premios</td>
-                      <td>".$obj->premios."</td>
+                        <td id='tabla'><b>Premios</b></td>
+                        <td>".$obj->premios."</td>
                       <tr>
                       <tr>
-                      <td>Fecha nacimiento</td>
-                      <td>".$obj->fechaNacimiento."</td>
+                        <td id='tabla'><b>Fecha nacimiento</b></td>
+                        <td>".$obj->fechaNacimiento."</td>
                       <tr>
                     </table>
+                    </center>
                     <p>".nl2br($obj->biografia)."</p>"
                     ;
                   }
