@@ -25,7 +25,7 @@
           </p>
         </div>
         <div class="col-md-4">
-          <center><img style="margin-top: 15px;" class="img rounded" src="../imagenes/cartel.jpg" alt="cartel"><br>
+          <center><img style="margin-top: 15px;" class="img rounded" src="../imagenes/cartel.JPG" alt="cartel"><br>
           <p>- Carnaval de Cádiz 2018 -</p></center>
         </div>
       </div>
